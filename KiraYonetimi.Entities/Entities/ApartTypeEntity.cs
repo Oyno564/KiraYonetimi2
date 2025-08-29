@@ -1,0 +1,24 @@
+﻿using KiraYonetimi.Entities.Entities;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using KiraYonetimi.Entities.Common;
+
+using System.ComponentModel.DataAnnotations;
+
+
+namespace KiraYonetimi.Entities.Entities
+{
+    public class ApartType : BaseEntity<bool>
+    {
+
+        [Key]
+        public int ApartTypeId { get; set; }
+        public string? TypeName { get; set; }
+
+        public virtual ICollection<Apartment>? Apartments { get; set; }
+    }
+}
