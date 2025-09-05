@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace KiraYonetimi.API.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class mig_1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -149,6 +149,7 @@ namespace KiraYonetimi.API.Migrations
                     InvoiceAmount = table.Column<decimal>(type: "numeric", nullable: false),
                     InvoiceStatus = table.Column<bool>(type: "boolean", nullable: false),
                     ApartUserId = table.Column<int>(type: "integer", nullable: true),
+                    ApartmentApartId = table.Column<int>(type: "integer", nullable: true),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -163,11 +164,10 @@ namespace KiraYonetimi.API.Migrations
                         principalTable: "ApartUsers",
                         principalColumn: "ApartUserId");
                     table.ForeignKey(
-                        name: "FK_Invoices_Apartments_ApartId",
-                        column: x => x.ApartId,
+                        name: "FK_Invoices_Apartments_ApartmentApartId",
+                        column: x => x.ApartmentApartId,
                         principalTable: "Apartments",
-                        principalColumn: "ApartId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ApartId");
                 });
 
             migrationBuilder.CreateTable(
@@ -220,9 +220,9 @@ namespace KiraYonetimi.API.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Invoices_ApartId",
+                name: "IX_Invoices_ApartmentApartId",
                 table: "Invoices",
-                column: "ApartId");
+                column: "ApartmentApartId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Invoices_ApartUserId",

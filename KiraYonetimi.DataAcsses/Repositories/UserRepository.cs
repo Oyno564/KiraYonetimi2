@@ -28,5 +28,15 @@ namespace KiraYonetimi.DataAcsses.Repositories
         {
             return await _context.Users.ToListAsync();
         }
+
+        public async Task<List<User>> AddAsync(User user)
+        {
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+            return await _context.Users.ToListAsync();
+        }
+        
+           
+        
     }
 }

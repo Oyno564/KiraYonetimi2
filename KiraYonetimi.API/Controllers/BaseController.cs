@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace KiraYonetimi.API.Controllers
 {
     [ApiController]
-    [Authorize]
+
     [Route("api/[controller]")]
     public abstract class BaseController(IMediator mediator) : ControllerBase
     {

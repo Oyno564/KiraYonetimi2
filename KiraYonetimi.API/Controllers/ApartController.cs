@@ -1,20 +1,22 @@
 ﻿
-using Microsoft.AspNetCore.Mvc;
-using MediatR;
-using Microsoft.AspNetCore.Mvc.Controllers;
 using KiraYonetimi.API.Models.Entity;
+using KiraYonetimi.Common.Queries.QueryRequest;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Controllers;
 namespace KiraYonetimi.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ApartController(IMediator mediator) : BaseController(mediator)
     {
 
-        [HttpGet("GetAllApart")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Models.Entity.Apartment>))]
-        public async Task<List<Models.Entity.Apartment>> GetAllApart()
+     
+        [HttpGet]
+        public async Task<IActionResult> GetAllAparts()
         {
-            return (List<Models.Entity.Apartment>)await mediator.Send(new Apartment());
+            var response = await mediator.Send(new GetAllApartQuery());
+            return Ok(response);
         }
     }
 }

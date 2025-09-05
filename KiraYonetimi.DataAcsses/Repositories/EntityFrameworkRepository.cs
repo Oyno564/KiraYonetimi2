@@ -1,52 +1,74 @@
-﻿using KiraYonetimi.DataAcsses.Interfaces;
+﻿using KiraYonetimi.DataAcsses.Context;
+using KiraYonetimi.DataAcsses.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
-using KiraYonetimi.DataAcsses.Context;
-
 
 namespace KiraYonetimi.DataAcsses.Repositories
 {
     public class EntityFrameworkRepository<T> : IRepository<T> where T : class
     {
-
-        private readonly KiraContext _DbContext;
-        private readonly DbSet<T> _DbSet;
-
+        private readonly KiraContext _dbContext;
+        private readonly DbSet<T> _dbSet;
 
         public EntityFrameworkRepository(KiraContext context)
         {
-            this. _DbContext = context;
-            this._DbSet = this._DbContext.Set<T>();
+            _dbContext = context;
+            _dbSet = _dbContext.Set<T>();
         }
+
+        // READ OPERATIONS
+      
+
+        public async Task<T?> GetByIdAsync(int id)
+        {
+            return await _dbSet.FindAsync(id);
+        }
+
+        // WRITE OPERATIONS
         public void Add(T entity)
         {
-           this._DbSet.Add(entity);
+            _dbSet.Add(entity);
+        }
+
+        Task<IList<T>> GetAllAsync(
+     Expression<Func<T, bool>>? predicate = null,
+     Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
+     Func<IQueryable<T>, IOrderedQueryable<T>>? orderby = null,
+     bool enableTracking = false);
+
+
+        public void Update(T entity)
+        {
+            _dbSet.Attach(entity);
+            _dbContext.Entry(entity).State = EntityState.Modified;
         }
 
         public void Delete(T entity)
         {
-           this._DbSet.Remove(entity);
+            _dbSet.Remove(entity);
         }
 
-        public IEnumerable<T> GetAll()
+        // OPTIONAL: Save changes
+        public async Task<int> SaveChangesAsync()
         {
-           return this._DbSet.ToList();
+            return await _dbContext.SaveChangesAsync();
         }
+
+     
 
         public T GetById(int id)
         {
-               return this._DbSet.Find(id);
-        }  
+            throw new NotImplementedException();
+        }
 
-      
-        public void Update(T entity)
+        public IEnumerable<T> GetAllAsync()
         {
-            this._DbSet.Attach(entity);
-                this._DbContext.Entry(entity).State = EntityState.Modified;
+           return _dbSet .ToList();
         }
     }
 }

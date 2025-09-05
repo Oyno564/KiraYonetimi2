@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace KiraYonetimi.API.Migrations
 {
     [DbContext(typeof(KiraContext))]
-    [Migration("20250825071840_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250903061918_mig_2")]
+    partial class mig_2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -151,6 +151,9 @@ namespace KiraYonetimi.API.Migrations
                     b.Property<int?>("ApartUserId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("ApartmentApartId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
@@ -177,9 +180,9 @@ namespace KiraYonetimi.API.Migrations
 
                     b.HasKey("InvoiceId");
 
-                    b.HasIndex("ApartId");
-
                     b.HasIndex("ApartUserId");
+
+                    b.HasIndex("ApartmentApartId");
 
                     b.ToTable("Invoices");
                 });
@@ -345,15 +348,13 @@ namespace KiraYonetimi.API.Migrations
 
             modelBuilder.Entity("KiraYonetimi.Entities.Entities.Invoice", b =>
                 {
-                    b.HasOne("KiraYonetimi.Entities.Entities.Apartment", "Apartment")
-                        .WithMany("Invoices")
-                        .HasForeignKey("ApartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("KiraYonetimi.Entities.Entities.ApartUser", "ApartUser")
                         .WithMany("Invoices")
                         .HasForeignKey("ApartUserId");
+
+                    b.HasOne("KiraYonetimi.Entities.Entities.Apartment", "Apartment")
+                        .WithMany("Invoices")
+                        .HasForeignKey("ApartmentApartId");
 
                     b.Navigation("ApartUser");
 

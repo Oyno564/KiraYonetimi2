@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace KiraYonetimi.API.Models.Entity
+namespace KiraYonetimi.Common.Queries.QueryRequest
 {
-    public class Apartment : IdentityUser
+    public class GetAllApartQueryResult
     {
 
-        public Guid ApartId { get; set; }
+        public int ApartId { get; set; }
         public int ApartBlock { get; set; }
         public bool ApartStatus { get; set; } // true ise sdolu, false ise boş
         public int ApartFloor { get; set; }

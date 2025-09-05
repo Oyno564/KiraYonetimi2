@@ -20,7 +20,7 @@ namespace KiraYonetimi.DataAcsses.Configurations
                 .WithMany(dt => dt.Apartments)
                 .HasForeignKey(d => d.ApartTypeId);
 
-            builder.HasOne(d => d.ApartUser)
+            builder.HasOne(d => d.ApartUser)        
                 .WithMany(au => au.Apartments)
                 .HasForeignKey(d => d.ApartUserId);
         }

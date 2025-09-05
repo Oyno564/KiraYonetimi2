@@ -2,7 +2,7 @@
 using KiraYonetimi.Entities.Entities;
 namespace KiraYonetimi.Common.Queries.QueryRequest;
 
-public class GetAllApartQuery : IRequest<List<Apartment>>
+public class GetAllApartQuery : IRequest<IList<GetAllApartQueryResult>>
 {
 
 }
