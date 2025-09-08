@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace KiraYonetimi.Entities.Common
 {
-    public class BaseEntity<TKey> : IEntity<TKey>
+    public class BaseEntity<TKey>
     {
+
+
+
+
         public bool IsActive { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }

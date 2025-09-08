@@ -26,6 +26,8 @@ namespace KiraYonetimi.DataAcsses.Repositories
         public InvoiceRepository InvoiceRepository { get; private set; }
         public UserRepository UserRepository { get; private set; }
 
+        public object WriteRepository => throw new NotImplementedException();
+
         public async Task Commit()
         {
             await this._kiraContext.SaveChangesAsync();
@@ -34,6 +36,11 @@ namespace KiraYonetimi.DataAcsses.Repositories
         public void Dispose()
         {
             this._kiraContext.Dispose();
+        }
+
+        public Task SaveAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }

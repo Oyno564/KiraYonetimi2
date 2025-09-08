@@ -15,7 +15,7 @@ namespace KiraYonetimi.DataAcsses.Configurations
         public void Configure(EntityTypeBuilder<Apartment> builder)
         {
             builder.HasKey(d => d.ApartId);
-
+            builder.Property(u => u.ApartId).HasColumnName("UserId");
             builder.HasOne(d => d.ApartType)
                 .WithMany(dt => dt.Apartments)
                 .HasForeignKey(d => d.ApartTypeId);

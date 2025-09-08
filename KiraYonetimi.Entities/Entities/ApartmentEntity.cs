@@ -9,10 +9,11 @@ using KiraYonetimi.Entities.Common;
 using System.ComponentModel.DataAnnotations;
 namespace KiraYonetimi.Entities.Entities
 {
-    public class Apartment : BaseEntity<bool>
+    public class Apartment : BaseEntity<int>
     {
-        [Key]
-        public int ApartId { get; set; }
+
+
+ public int ApartId { get; set; }
         public int ApartBlock { get; set; }
         public bool ApartStatus { get; set; } // true ise sdolu, false ise boş
         public int ApartFloor { get; set; }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using KiraYonetimi.Entities.Common;
+using System.ComponentModel.DataAnnotations;
 
 
 
@@ -29,7 +30,7 @@ namespace KiraYonetimi.Entities.Entities
             ApartUser = apartUser;
             Messages = messages;
         }
-
+        [Key]
         public int UserId { get; set; }
         public string? FullName { get; set; }
         public int TcNo { get; set; }

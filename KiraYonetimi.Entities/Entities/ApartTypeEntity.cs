@@ -12,10 +12,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace KiraYonetimi.Entities.Entities
 {
-    public class ApartType : BaseEntity<bool>
+    public class ApartType : BaseEntity<int>
     {
 
         [Key]
+
         public int ApartTypeId { get; set; }
         public string? TypeName { get; set; }
 

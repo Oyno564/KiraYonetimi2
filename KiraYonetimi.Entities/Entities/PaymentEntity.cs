@@ -5,11 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using KiraYonetimi.Entities.Common;
+using System.ComponentModel.DataAnnotations;
 
 namespace KiraYonetimi.Entities.Entities
 {
     public class Payment : BaseEntity<bool>
     {
+        [Key]
         public int PaymentId { get; set; }
 
         public int InvoiceId { get; set; }

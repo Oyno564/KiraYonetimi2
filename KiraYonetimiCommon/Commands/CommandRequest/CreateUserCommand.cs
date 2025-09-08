@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KiraYonetimi.Common.Commands.CommandRequest
 {
-    internal class CreateUserCommand : IRequest
+  public  class CreateUserCommand : IRequest
     {
         public int UserId { get; set; }
         public string? FullName { get; set; }

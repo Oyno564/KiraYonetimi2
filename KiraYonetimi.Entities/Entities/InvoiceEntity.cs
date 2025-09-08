@@ -6,10 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 using KiraYonetimi.Entities.Common;
+using System.ComponentModel.DataAnnotations;
 namespace KiraYonetimi.Entities.Entities
 {
     public class Invoice : BaseEntity<bool>
     {
+        [Key]
         public int InvoiceId { get; set; }
 
         public int ApartId { get; set; }

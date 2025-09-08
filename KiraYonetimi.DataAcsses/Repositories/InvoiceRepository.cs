@@ -10,7 +10,7 @@ using KiraYonetimi.DataAcsses.Context;
 
 namespace KiraYonetimi.DataAcsses.Repositories
 {
-    public class InvoiceRepository : EntityFrameworkRepository<Invoice>, IInvoiceRepository
+    public class InvoiceRepository : ReadRepository<Invoice>, IInvoiceRepository
     {
 
         private readonly KiraContext _DbContext;

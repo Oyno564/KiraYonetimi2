@@ -5,12 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using KiraYonetimi.Entities.Common;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace KiraYonetimi.Entities.Entities
 {
-    public class ApartUser : BaseEntity<bool>
+    public class ApartUser : BaseEntity<int>
     {
+        [Key]
+
         public int ApartUserId { get; set; }
         public int UserId { get; set; }
         public int ApartId { get; set; }

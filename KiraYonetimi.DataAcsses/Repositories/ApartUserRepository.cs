@@ -12,7 +12,7 @@ using KiraYonetimi.DataAcsses.Context;
 
 namespace KiraYonetimi.DataAcsses.Repositories
 {
-    public class ApartUserRepository : EntityFrameworkRepository<ApartUser>, IApartUserRepository
+    public class ApartUserRepository : ReadRepository<ApartUser>, IApartUserRepository
     {
         public ApartUserRepository(KiraContext context) : base(context)
         {
