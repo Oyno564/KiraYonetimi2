@@ -7,10 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using KiraYonetimi.DataAcsses.Interfaces;
 using KiraYonetimi.DataAcsses.Context;
-
+/*
 namespace KiraYonetimi.DataAcsses.Repositories
 {
-    public class InvoiceRepository : ReadRepository<Invoice>, IInvoiceRepository
+    public class InvoiceRepository : IInvoiceRepository
     {
 
         private readonly KiraContext _DbContext;
@@ -27,3 +27,4 @@ namespace KiraYonetimi.DataAcsses.Repositories
         }
     }
 } 
+*/

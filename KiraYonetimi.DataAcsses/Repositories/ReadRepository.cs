@@ -7,7 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-
+/*
 namespace KiraYonetimi.DataAcsses.Repositories
 {
 
@@ -58,3 +58,4 @@ namespace KiraYonetimi.DataAcsses.Repositories
         }
     }
 }
+*/

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KiraYonetimi.DataAcsses.Interfaces
 {
-    public  interface IReadRepository<T> : IRepository<T> where T : class
+    public  interface IReadRepository<T>
     {
         IQueryable<T> GetAll();
         

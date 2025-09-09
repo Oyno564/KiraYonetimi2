@@ -14,7 +14,10 @@ namespace KiraYonetimi.Entities.Entities
 {
     public class User : BaseEntity<bool>
     {
-
+        public User()
+        {
+                
+        }
 
 
         public User(int userId, string? fullName, int tcNo, string? email, int phone, string? plakaNo, bool role, ICollection<Payment>? payments, ApartUser? apartUser, ICollection<Message>? messages)

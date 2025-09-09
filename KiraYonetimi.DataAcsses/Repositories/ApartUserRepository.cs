@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using KiraYonetimi.DataAcsses.Interfaces;
 using KiraYonetimi.DataAcsses.Interfaces;
 using KiraYonetimi.DataAcsses.Context;
-
+/*
 
 namespace KiraYonetimi.DataAcsses.Repositories
 {
@@ -27,3 +27,4 @@ namespace KiraYonetimi.DataAcsses.Repositories
         }
     }
 }
+*/

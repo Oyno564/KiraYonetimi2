@@ -26,7 +26,7 @@ builder.Services.AddDbContext<KiraContext>(options =>
         b => b.MigrationsAssembly("KiraYonetimi.DataAcsses") // 👈 migrations will be stored here
     ));
 
-builder.Services.AddScoped<DatabaseUnitOfWork>();
+  // .Services.AddScoped<DatabaseUnitOfWork>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddMediatR(configuration =>
 {
@@ -47,8 +47,8 @@ using (var scope = app.Services.CreateScope())
     // Seed a default user if none exist
     if (!context.Users.Any())
     {
-        context.Users.Add(new User { FullName = "Deniz" });
-        context.Users.Add(new User { UserId = 1 });
+        //  context.Users.Add(new User { FullName = "Deniz" });
+      //   context.Users.Add(new User { UserId = 1 });
         context.SaveChanges();
     }
 }

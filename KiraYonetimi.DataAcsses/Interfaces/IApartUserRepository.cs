@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace KiraYonetimi.DataAcsses.Interfaces
 {
-    public interface IApartUser 
+    public interface IApartUserRepository
     {
 
-      
+        IEnumerable<ApartUser> GetByApartId(int ApartId, int UserId);
     }
 }

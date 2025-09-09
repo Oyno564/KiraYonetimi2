@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+/*
 namespace KiraYonetimi.DataAcsses.Repositories
 {
     public  class WriteRepository<T> : IWriteRepository<T> where T : class
@@ -30,8 +30,7 @@ namespace KiraYonetimi.DataAcsses.Repositories
 
         public async Task<bool> AddAsync(T model)
         {
-            EntityEntry<T> entityEntry = await Table.AddAsync(model);
-            return entityEntry.State == EntityState.Added; // entity girilen yere başarılı bir şekilde eklenip eklenmediğini dönüyor.
+           
         }
 
         public Task<bool> AddAsync(List<T> model)
@@ -57,16 +56,14 @@ namespace KiraYonetimi.DataAcsses.Repositories
 
         public bool Remove(T model)
         {
-            EntityEntry<T> entityEntry = Table.Remove(model);
-            return entityEntry.State == EntityState.Deleted;
+           
         }
 
 
 
         public bool RemoveRange(List<T> model)
         {
-            Table.RemoveRange(model);
-            return true;
+           
         }
 
         public async Task<int> SaveAsync()
@@ -90,3 +87,4 @@ namespace KiraYonetimi.DataAcsses.Repositories
         }
     }
 }
+*/
