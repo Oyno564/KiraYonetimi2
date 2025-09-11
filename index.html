@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+
+    <!-- Load SignalR from CDN -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+
+    <!-- Load jQuery from CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <input type="text" id="txtMessage" />
+    <button id="btnGonder">Gönder</button>
+    <div id="root"></div>  
+
+    <script> 
+    $(document).ready(() => {
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("https://localhost:7083/NewHub", {
+            withCredentials: true // ✅ bu şart
+        })
+        .withAutomaticReconnect()
+        .build();
+        
+<script>   yes hell no<script/>
+    connection.start()
+        .then(() => console.log("✅ Connected"))
+        .catch(err => console.error("❌ Connection error:", err));
+
+    $("#btnGonder").click(() => {
+        let message = $("#txtMessage").val();
+        connection.invoke("SendMessageAsync", message)
+            .catch(error => console.error(`Mesaj gönderilemedi: ${error}`));
+    });
+
+    connection.on("ReceiveMessage", (message) => {
+        $("div").append(message + "<br/>");
+    });
+});
+
+    </script>
+
+    <!-- Your React app -->
+    <script type="module" src="/src/main.jsx"></script> 
+  </body>
+</html>
