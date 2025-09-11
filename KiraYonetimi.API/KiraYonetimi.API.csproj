@@ -35,8 +35,4 @@
 	  <ProjectReferance Include="..\KiraYonetimi.Common\KiraYonetimi.Common.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-
-  </ItemGroup>
-
 </Project>

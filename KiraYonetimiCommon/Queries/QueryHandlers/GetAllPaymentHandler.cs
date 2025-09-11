@@ -1,6 +1,6 @@
 ﻿
 using MediatR;
-
+/*
 using KiraYonetimi.DataAcsses.Context;
 using KiraYonetimi.Entities.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -23,8 +23,7 @@ namespace KiraYonetimi.Common.Queries.QueryHandlers
               GetAllPaymentQuery request,
               CancellationToken cancellationToken)
         {
-            return await _context.Payments
-                .Select(m => new GetAllPaymentQueryResult
+            return await _context.Payments.Select(m => new GetAllPaymentQueryResult
                 {
                    PaymentId = m.PaymentId,
                    InvoiceId = m.InvoiceId,
@@ -39,3 +38,4 @@ namespace KiraYonetimi.Common.Queries.QueryHandlers
         } 
     }
 }
+*/

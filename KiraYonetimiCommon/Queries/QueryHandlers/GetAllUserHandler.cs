@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using KiraYonetimi.Common.Queries.QueryRequest;
 using KiraYonetimi.DataAcsses.Repositories;
 using System.Reflection.Metadata.Ecma335;
-
+/*
 namespace KiraYonetimi.Common.Queries.QueryHandlers
 {
 
@@ -33,17 +33,23 @@ namespace KiraYonetimi.Common.Queries.QueryHandlers
         {
             return await _context.Users
                 .Select(u => new GetAllUserQueryResult
-                {
+                {  
                     UserId = u.UserId,
                     FullName = u.FullName,
                     Email = u.Email,
                     TcNo = u.TcNo,
                     Phone = u.Phone,
                     PlakaNo = u.PlakaNo,   
-                    Role = u.Role
+                    Role = u.Role 
                 })
                 .ToListAsync(cancellationToken);
+        }
+
+        Task<IList<GetAllPaymentQueryResult>> IRequestHandler<GetAllPaymentQuery, IList<GetAllPaymentQueryResult>>.Handle(GetAllPaymentQuery request, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
     }
 };
 
+*/

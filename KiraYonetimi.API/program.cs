@@ -1,4 +1,5 @@
 ﻿using FluentAssertions.Common;
+using KiraYonetimi.API.SignalR.Hubs;
 using KiraYonetimi.Common.Queries.QueryHandlers;
 using KiraYonetimi.DataAcsses.Context;
 using KiraYonetimi.DataAcsses.Interfaces;
@@ -14,47 +15,39 @@ using Swashbuckle.AspNetCore.SwaggerUI;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
+
+// ----------------- Services -----------------
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSignalR();
 
-// Register DbContext
-builder.Services.AddDbContext<KiraContext>(options =>
-    options.UseNpgsql(
-        builder.Configuration.GetConnectionString("DefaultConnection"),
-        b => b.MigrationsAssembly("KiraYonetimi.DataAcsses") // 👈 migrations will be stored here
-    ));
-
-  // .Services.AddScoped<DatabaseUnitOfWork>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddMediatR(configuration =>
+// CORS
+builder.Services.AddCors(options =>
 {
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins(" http://localhost:5173/NewHub") // frontend adresiniz
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials(); // ✅ signalR için gerekli
+    });
+});
+
+// DbContext ve diğer servisler
+builder.Services.AddDbContext<KiraContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"),
+    b => b.MigrationsAssembly("KiraYonetimi.DataAcsses")));
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddMediatR(configuration => {
     configuration.RegisterServicesFromAssembly(typeof(GetAllApartQueryHandler).Assembly);
 });
 
 var app = builder.Build();
 
-
-// ✅ Seed initial data at startup
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<KiraContext>();
-
-    // Run migrations automatically (optional)
-    context.Database.Migrate();
-
-    // Seed a default user if none exist
-    if (!context.Users.Any())
-    {
-        //  context.Users.Add(new User { FullName = "Deniz" });
-      //   context.Users.Add(new User { UserId = 1 });
-        context.SaveChanges();
-    }
-}
-
-
-// Configure the HTTP request pipeline.
+// ----------------- Middleware -----------------
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -62,9 +55,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRouting(); // ✅ UseRouting öncesinde CORS olamaz
 
+app.UseCors();    // ✅ UseCors mutlaka UseRouting'den sonra, UseAuthorization'dan önce
+app.UseAuthorization();
 
-
+// ----------------- Endpoints -----------------
 app.MapControllers();
+app.MapHub<NewHub>("/NewHub"); // ✅ SignalR hub mapping
 
 app.Run();
