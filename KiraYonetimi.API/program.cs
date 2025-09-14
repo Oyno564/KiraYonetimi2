@@ -15,6 +15,15 @@ using Swashbuckle.AspNetCore.SwaggerUI;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("vite",
+       p => p.WithOrigins("http://localhost:5173")
+             .AllowAnyHeader()
+             .AllowAnyMethod()
+             .AllowCredentials());
+});
 
 
 // ----------------- Services -----------------
@@ -23,17 +32,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
 
-// CORS
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(policy =>
-    {
-        policy.WithOrigins(" http://localhost:5173/NewHub") // frontend adresiniz
-              .AllowAnyHeader()
-              .AllowAnyMethod()
-              .AllowCredentials(); // ✅ signalR için gerekli
-    });
-});
+
 
 // DbContext ve diğer servisler
 builder.Services.AddDbContext<KiraContext>(options =>
@@ -43,6 +42,14 @@ builder.Services.AddDbContext<KiraContext>(options =>
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddMediatR(configuration => {
     configuration.RegisterServicesFromAssembly(typeof(GetAllApartQueryHandler).Assembly);
+    configuration.RegisterServicesFromAssembly(typeof(GetAllUserHandler).Assembly);
+});
+
+builder.Services.AddSignalR(options =>
+{
+    options.EnableDetailedErrors = true;
+    options.KeepAliveInterval = TimeSpan.FromSeconds(15);
+    options.ClientTimeoutInterval = TimeSpan.FromSeconds(60);
 });
 
 var app = builder.Build();
@@ -57,7 +64,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting(); // ✅ UseRouting öncesinde CORS olamaz
 
-app.UseCors();    // ✅ UseCors mutlaka UseRouting'den sonra, UseAuthorization'dan önce
+app.UseCors("vite");    // ✅ UseCors mutlaka UseRouting'den sonra, UseAuthorization'dan önce
 app.UseAuthorization();
 
 // ----------------- Endpoints -----------------

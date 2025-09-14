@@ -20,10 +20,11 @@ namespace KiraYonetimi.Entities.Entities
         }
 
 
-        public User(int userId, string? fullName, int tcNo, string? email, int phone, string? plakaNo, bool role, ICollection<Payment>? payments, ApartUser? apartUser, ICollection<Message>? messages)
+        public User(int userId, string? fullName, string password,  int tcNo, string? email, int phone, string? plakaNo, bool role, ICollection<Payment>? payments, ApartUser? apartUser, ICollection<Message>? messages)
         {
             UserId = userId;
             FullName = fullName;
+            Password = password;
             TcNo = tcNo;
             Email = email;
             Phone = phone;
@@ -38,6 +39,8 @@ namespace KiraYonetimi.Entities.Entities
         public string? FullName { get; set; }
         public int TcNo { get; set; }
         public string? Email { get; set; }
+
+        public string? Password { get; set; }
 
         public int Phone { get; set; }
 

@@ -24,6 +24,13 @@ namespace KiraYonetimi.DataAcsses.Repositories
                            .ToList();
         }
 
+        public IEnumerable<User> GetByPassword(string password)
+        {
+            return _context.Users
+                           .Where(u => u.Password == password)
+                           .ToList();
+        }
+
         public async Task<List<User>> GetAllAsync()
         {
             return await _context.Users.ToListAsync();

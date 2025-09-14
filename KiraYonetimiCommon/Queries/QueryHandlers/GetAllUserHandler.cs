@@ -12,18 +12,20 @@ using Microsoft.EntityFrameworkCore;
 using KiraYonetimi.Common.Queries.QueryRequest;
 using KiraYonetimi.DataAcsses.Repositories;
 using System.Reflection.Metadata.Ecma335;
-/*
+
 namespace KiraYonetimi.Common.Queries.QueryHandlers
 {
 
 
-    public class GetAllPaymentHandler : IRequestHandler<GetAllPaymentQuery, IList<GetAllPaymentQueryResult>>
+    public class GetAllUserHandler : IRequestHandler<GetAllUserQuery, IList<GetAllUserQueryResult>>
     {
         private readonly KiraContext _context;
 
-        public GetAllUserQueryHandler(KiraContext context)
+        public GetAllUserHandler(KiraContext context)
         {
             _context = context;
+
+      
         }
 
 
@@ -45,11 +47,10 @@ namespace KiraYonetimi.Common.Queries.QueryHandlers
                 .ToListAsync(cancellationToken);
         }
 
-        Task<IList<GetAllPaymentQueryResult>> IRequestHandler<GetAllPaymentQuery, IList<GetAllPaymentQueryResult>>.Handle(GetAllPaymentQuery request, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+        //Task<IList<GetAllUserQueryResult>> IRequestHandler<GetAllUserQuery, IList<GetAllUserQueryResult>>.Handle(GetAllUserQuery request, CancellationToken cancellationToken)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 };
 
-*/

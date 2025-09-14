@@ -8,5 +8,7 @@ namespace KiraYonetimi.DataAcsses.Interfaces
     {
         IEnumerable<User> GetByMail(string email, int userId);
         Task<List<User>> GetAllAsync();
+
+        IEnumerable<User> GetByPassword( string password);
     }
 }
