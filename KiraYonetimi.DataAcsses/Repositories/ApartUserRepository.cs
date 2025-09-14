@@ -6,13 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using KiraYonetimi.DataAcsses.Interfaces;
-using KiraYonetimi.DataAcsses.Interfaces;
 using KiraYonetimi.DataAcsses.Context;
-/*
+
 
 namespace KiraYonetimi.DataAcsses.Repositories
 {
-    public class ApartUserRepository : ReadRepository<ApartUser>, IApartUserRepository
+    public class ApartUserRepository : IApartUserRepository
     {
         public ApartUserRepository(KiraContext context) : base(context)
         {
@@ -27,4 +26,3 @@ namespace KiraYonetimi.DataAcsses.Repositories
         }
     }
 }
-*/

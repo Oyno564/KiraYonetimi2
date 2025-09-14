@@ -7,24 +7,36 @@ using System.Text;
 using System.Threading.Tasks;
 using KiraYonetimi.DataAcsses.Interfaces;
 using KiraYonetimi.DataAcsses.Context;
-/*
+using Microsoft.EntityFrameworkCore;
+
 namespace KiraYonetimi.DataAcsses.Repositories
 {
     public class InvoiceRepository : IInvoiceRepository
     {
+        private readonly KiraContext _context;
 
-        private readonly KiraContext _DbContext;
-        public InvoiceRepository(KiraContext context) : base(context)
+        public InvoiceRepository(KiraContext context)
         {
-            this._DbContext = context;
+            _context = context;
         }
 
-        public IEnumerable<Invoice> GetByInvoice(int InvoiceId, int ApartId)
+        public IEnumerable<Invoice> GetInvoiceByApartId(int InvoiceId, int ApartId)
         {
-           return (from Invoice in _DbContext.Invoices
-                   where Invoice.InvoiceId == InvoiceId && Invoice.ApartId == ApartId
-                   select Invoice).ToList(); 
+            return _context.Invoices
+                           .Where(u => u.InvoiceId == InvoiceId && u.ApartId == ApartId)
+                           .ToList();
         }
+
+   
+        public async Task<List<Invoice>> GetAllAsync()
+        {
+            return await _context.Invoices.ToListAsync();
+        }
+
+
+
+
+
+
     }
-} 
-*/
+}
