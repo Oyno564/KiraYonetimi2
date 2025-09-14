@@ -17,29 +17,26 @@ namespace KiraYonetimi.DataAcsses.Repositories
             _context = context;
         }
 
-        public IEnumerable<User> GetByMail(string email, int userId)
+        public int? GetUserIdByPassword(string password)
         {
             return _context.Users
-                           .Where(u => u.Email == email && u.UserId == userId)
-                           .ToList();
+                .Where(u => u.Password == password)
+                .Select(u => (int?)u.UserId)   // eşleşmezse null döner
+                .FirstOrDefault();
         }
 
-        public IEnumerable<User> GetByPassword(string password)
-        {
-            return _context.Users
-                           .Where(u => u.Password == password)
-                           .ToList();
-        }
+
 
         public async Task<List<User>> GetAllAsync()
         {
             return await _context.Users.ToListAsync();
         }
 
+        public async Task<User?> GetByMail(string email)
+        {
+            return await _context.Users
+                .FirstOrDefaultAsync(u => u.Email == email);
+        }
 
 
-
-
-
-    }
 }

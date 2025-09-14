@@ -6,9 +6,13 @@ namespace KiraYonetimi.DataAcsses.Interfaces
 {
     public interface IUserRepository
     {
-        IEnumerable<User> GetByMail(string email, int userId);
+        // Mail unique ise tek User döndürsün
+        Task<User?> GetByMailAsync(string email);
+
+        // Tüm kullanıcıları döndür
         Task<List<User>> GetAllAsync();
 
-        IEnumerable<User> GetByPassword( string password);
+        // Password’den UserId döndür (birden fazla olabilir)
+        Task<List<int>> GetUserIdsByPasswordAsync(string password);
     }
 }
