@@ -38,8 +38,7 @@ builder.Services.AddSignalR();
 builder.Services.AddDbContext<KiraContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"),
     b => b.MigrationsAssembly("KiraYonetimi.DataAcsses")));
-
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped(typeof(IRepository<>), typeof(IRepository<>));
 builder.Services.AddMediatR(configuration => {
     configuration.RegisterServicesFromAssembly(typeof(GetAllApartQueryHandler).Assembly);
     configuration.RegisterServicesFromAssembly(typeof(GetAllUserHandler).Assembly);

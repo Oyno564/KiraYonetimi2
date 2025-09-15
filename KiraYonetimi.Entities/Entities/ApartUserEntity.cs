@@ -6,14 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using KiraYonetimi.Entities.Common;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace KiraYonetimi.Entities.Entities
 {
-    public class ApartUser : BaseEntity<int>
+    public class ApartUser : BaseEntity
     {
         [Key]
-
+        [Column("ApartUserId", TypeName = "Guid")]
+        public Guid PkId { get; set; }
         public int ApartUserId { get; set; }
         public int UserId { get; set; }
         public int ApartId { get; set; }
