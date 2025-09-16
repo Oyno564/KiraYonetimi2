@@ -1,28 +1,20 @@
-﻿using KiraYonetimi.DataAcsses.Interfaces;
-using KiraYonetimi.Entities.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using KiraYonetimi.DataAcsses.Context;
 using KiraYonetimi.DataAcsses.Interfaces;
-using KiraYonetimi.DataAcsses.Context;
-
+using KiraYonetimi.Entities.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace KiraYonetimi.DataAcsses.Repositories
 {
-    public class ApartUserRepository : IApartUserRepository
+    public sealed class ApartUserRepository
+      : EntityFrameworkRepository<ApartUser>, IApartUserRepository
     {
-        public ApartUserRepository(KiraContext context) : base(context)
+        public ApartUserRepository(KiraContext context) : base(context) { }
+
+        public async Task<List<ApartUser>> GetByApartIdAsync(int apartId, int? userId = null, CancellationToken ct = default)
         {
-        }
-
-
-      
-
-        IEnumerable<ApartUser> IApartUserRepository.GetByApartId(int ApartId, int UserId)
-        {
-            throw new NotImplementedException();
+            var q = Table.AsNoTracking().Where(x => x.ApartId == apartId);
+            if (userId.HasValue) q = q.Where(x => x.UserId == userId.Value);
+            return await q.ToListAsync(ct);
         }
     }
 }

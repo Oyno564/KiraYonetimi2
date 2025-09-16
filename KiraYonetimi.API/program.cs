@@ -1,9 +1,12 @@
-﻿using FluentAssertions.Common;
+﻿
 using KiraYonetimi.API.SignalR.Hubs;
+using KiraYonetimi.Common.Commands.CommandHandlers;
+using KiraYonetimi.Common.Commands.CommandRequest;
 using KiraYonetimi.Common.Queries.QueryHandlers;
 using KiraYonetimi.DataAcsses.Context;
 using KiraYonetimi.DataAcsses.Interfaces;
 using KiraYonetimi.DataAcsses.Repositories;
+using KiraYonetimi.DataAcsses.UnitOfWorks;
 using KiraYonetimi.Entities.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.SignalR;
@@ -12,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerUI;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,19 +35,29 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
+builder.Services.AddScoped(typeof(IRepository<>), typeof(EntityFrameworkRepository<>));
+builder.Services.AddScoped<IApartUserRepository, ApartUserRepository>();
 
 
-
-// DbContext ve diğer servisler
+// DbContext
 builder.Services.AddDbContext<KiraContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"),
     b => b.MigrationsAssembly("KiraYonetimi.DataAcsses")));
-builder.Services.AddScoped(typeof(IRepository<>), typeof(IRepository<>));
-builder.Services.AddMediatR(configuration => {
-    configuration.RegisterServicesFromAssembly(typeof(GetAllApartQueryHandler).Assembly);
-    configuration.RegisterServicesFromAssembly(typeof(GetAllUserHandler).Assembly);
+
+// IRepository<> → EntityFrameworkRepository<> (tek ve dışarıda)
+builder.Services.AddScoped(typeof(IRepository<>), typeof(EntityFrameworkRepository<>));
+builder.Services.AddScoped<IDatabaseUnitOfWork, DatabaseUnitOfWork>();
+// (Varsa) Unit of Work
+// builder.Services.AddScoped<IDatabaseUnitOfWork, DatabaseUnitOfWork>();
+
+// MediatR (repo kaydı buraya konmaz)
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(CreateUserCommand).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(CreateUserCommandHandler).Assembly);
 });
 
+// SignalR sadece bir kez ve options’lı
 builder.Services.AddSignalR(options =>
 {
     options.EnableDetailedErrors = true;

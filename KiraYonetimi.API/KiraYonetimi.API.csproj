@@ -23,16 +23,16 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="8.1.4" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="8.1.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="9.0.4" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="8.1.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="9.0.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\KiraYonetimi.DataAcsses\KiraYonetimi.DataAcsses.csproj" />
     <ProjectReference Include="..\KiraYonetimi.Entities\KiraYonetimi.Entities.csproj" />
     <ProjectReference Include="..\KiraYonetimiCommon\KiraYonetimi.Common.csproj" />
-	  <ProjectReferance Include="..\KiraYonetimi.Common\KiraYonetimi.Common.csproj" />
+
   </ItemGroup>
 
 </Project>

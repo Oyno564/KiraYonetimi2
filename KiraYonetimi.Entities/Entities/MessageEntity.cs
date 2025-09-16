@@ -10,9 +10,9 @@ using KiraYonetimi.Entities.Common;
 
 namespace KiraYonetimi.Entities.Entities
 {
-    public class Message : BaseEntity<bool>
+    public class Message : BaseEntity
     {
-        [Key]
+       
         public int MessageId { get; set; }
 
         public int FromUserId { get; set; }

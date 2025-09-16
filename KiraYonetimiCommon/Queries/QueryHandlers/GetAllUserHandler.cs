@@ -42,7 +42,8 @@ namespace KiraYonetimi.Common.Queries.QueryHandlers
                     TcNo = u.TcNo,
                     Phone = u.Phone,
                     PlakaNo = u.PlakaNo,   
-                    Role = u.Role 
+                    Role = u.Role, 
+                    PkId = u.PkId
                 })
                 .ToListAsync(cancellationToken);
         }

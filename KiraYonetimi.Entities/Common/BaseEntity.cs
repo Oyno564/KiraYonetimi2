@@ -1,26 +1,43 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
+using Swashbuckle.AspNetCore.Annotations;
+
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System;
+
+
 
 namespace KiraYonetimi.Entities.Common
 {
-    public class BaseEntity<TKey, PrimaryKey>
+    public abstract  class BaseEntity
     {
 
 
 
         [Key]
-        [Column("PkId", TypeName = "varchar(36)" Type = "Guid")]
-
+        [Column("PkId", TypeName = "uuid")]
+        [SwaggerSchema(ReadOnly = true)]
         public Guid   PkId { get; set; }
         public bool IsActive { get; set; }
+
+        [SwaggerSchema(ReadOnly = true)]
         public DateTime CreatedDate { get; set; }
+
+        [SwaggerSchema(ReadOnly = true)]
         public DateTime UpdatedDate { get; set; }
+
+        [SwaggerSchema(ReadOnly = true)]
         public DateTime DeletedDate { get; set; }
+
+
+      
+       
+
+      
+     
     }
 }

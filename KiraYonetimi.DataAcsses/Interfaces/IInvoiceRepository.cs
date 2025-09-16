@@ -10,6 +10,6 @@ namespace KiraYonetimi.DataAcsses.Interfaces
     {
         IEnumerable<Invoice> GetInvoiceByApartId(int InvoiceId, int ApartId);
 
-        Task<List<Invoice>> GetAllAsync();
+    
     }
 }

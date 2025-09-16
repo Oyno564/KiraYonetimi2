@@ -28,10 +28,7 @@ namespace KiraYonetimi.DataAcsses.Repositories
         }
 
    
-        public async Task<List<Invoice>> GetAllAsync()
-        {
-            return await _context.Invoices.ToListAsync();
-        }
+    
 
 
 

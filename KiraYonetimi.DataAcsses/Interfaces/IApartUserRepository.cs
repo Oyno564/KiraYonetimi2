@@ -1,15 +1,11 @@
 ﻿using KiraYonetimi.Entities.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using KiraYonetimi.DataAcsses.Interfaces;
 
 namespace KiraYonetimi.DataAcsses.Interfaces
 {
-    public interface IApartUserRepository
+    public interface IApartUserRepository : IRepository<ApartUser>
     {
-
-        IEnumerable<ApartUser> GetByApartId(int ApartId, int UserId);
+        Task<List<ApartUser>> GetByApartIdAsync(int apartId, int? userId = null, CancellationToken ct = default);
     }
+
 }

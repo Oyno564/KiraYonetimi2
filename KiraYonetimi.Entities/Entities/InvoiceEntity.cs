@@ -9,9 +9,9 @@ using KiraYonetimi.Entities.Common;
 using System.ComponentModel.DataAnnotations;
 namespace KiraYonetimi.Entities.Entities
 {
-    public class Invoice : BaseEntity<bool>
+    public class Invoice : BaseEntity
     {
-        [Key]
+       
         public int InvoiceId { get; set; }
 
         public int ApartId { get; set; }

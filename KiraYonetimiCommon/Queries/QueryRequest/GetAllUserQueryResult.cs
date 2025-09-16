@@ -8,13 +8,13 @@ namespace KiraYonetimi.Common.Queries.QueryRequest
 {
     public  class GetAllUserQueryResult
     {
-
+        public Guid PkId { get; set; }
     public int UserId { get; set; }
         public string? FullName { get; set; }
-       public int TcNo { get; set; }
+       public string TcNo { get; set; }
         public string? Email { get; set; }
 
-         public int Phone { get; set; }
+         public string Phone { get; set; }
 
         public string? PlakaNo { get; set; }
 

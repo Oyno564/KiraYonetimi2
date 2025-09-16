@@ -1,45 +1,57 @@
-﻿using KiraYonetimi.Common.Queries.QueryRequest;
-using KiraYonetimi.DataAcsses.Context;
-using KiraYonetimi.Entities.Entities;
+﻿using KiraYonetimi.Common.Commands.CommandRequest;
+using KiraYonetimi.Common.Queries.QueryRequest;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+
 namespace KiraYonetimi.API.Controllers
 {
-    [Route("api/[controller]/[action]")]
     [ApiController]
-    public class UserController : ControllerBase
+    [Route("api/[controller]")]
+    public sealed class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly KiraContext _context;
+        public UserController(IMediator mediator) => _mediator = mediator;
 
-        public UserController(KiraContext context, IMediator mediator)
-        {
-            _context = context;
-            _mediator = mediator;
-        }
-
+        // GET api/user
         [HttpGet]
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetAllUsers(CancellationToken ct)
         {
-            var response = await _mediator.Send(new GetAllUserQuery());
-            return Ok(response);
+            var result = await _mediator.Send(new GetAllUserQuery(), ct);
+            return Ok(result);
         }
 
-
-        [HttpPost]
-       public async Task<IActionResult> Create([FromBody] User user)
+        // GET api/user/{id}
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> GetById([FromRoute] Guid id, CancellationToken ct)
         {
-            if (user == null) return BadRequest();
+            // TODO: implement a GetUserByIdQuery and return a UserDto
+            throw new NotImplementedException();
+        }
 
-            _context.Users.Add(user);
-            _context.SaveChanges();
+        // POST api/user
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateUserCommand req, CancellationToken ct)
+        {
+            if (!ModelState.IsValid) return ValidationProblem(ModelState);
 
-            return CreatedAtAction(nameof(GetAllUsers), new { id = user.UserId }, user);
+            // map request -> command (or let the request IS the command)
+            var cmd = new CreateUserCommand
+            {
+                FullName = req.FullName,
+                TcNo = req.TcNo,
+                Email = req.Email,
+                Password = req.Password,     // hash inside handler/service
+                Phone = req.Phone,
+                PlakaNo = req.PlakaNo,
+                Role = req.Role,
+                ApartUserPkId = req.ApartUserPkId
+
+            };
+
+            // if your handler returns Guid of the new user (recommended)
+            var id = await _mediator.Send(cmd, ct);
+
+            return CreatedAtAction(nameof(GetById), new { id }, new { id });
         }
     }
-
-    
 }
- 

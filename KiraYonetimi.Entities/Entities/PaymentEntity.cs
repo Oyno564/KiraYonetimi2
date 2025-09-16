@@ -9,9 +9,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace KiraYonetimi.Entities.Entities
 {
-    public class Payment : BaseEntity<bool>
+    public class Payment : BaseEntity
     {
-        [Key]
+      
         public int PaymentId { get; set; }
 
         public int InvoiceId { get; set; }

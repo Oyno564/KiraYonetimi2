@@ -1,26 +1,18 @@
-﻿using KiraYonetimi.Entities.Entities;
-using System;
+﻿using KiraYonetimi.Entities.Common;
+using KiraYonetimi.Entities.Entities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using KiraYonetimi.Entities.Common;
-using System.ComponentModel.DataAnnotations;
-
 
 
 
 namespace KiraYonetimi.Entities.Entities
 {
-    public class User : BaseEntity<bool>
+    public class User : BaseEntity
     {
-        public User()
-        {
-                
-        }
+        public User() { }
 
-
-        public User(int userId, string? fullName, string password,  int tcNo, string? email, int phone, string? plakaNo, bool role, ICollection<Payment>? payments, ApartUser? apartUser, ICollection<Message>? messages)
+        // Sadece scalar (mapped) property’ler ctor’da olabilir
+        public User(int userId, string? fullName, string? password, string tcNo,
+                    string? email, string phone, string? plakaNo, bool role, Guid PkId)
         {
             UserId = userId;
             FullName = fullName;
@@ -30,31 +22,24 @@ namespace KiraYonetimi.Entities.Entities
             Phone = phone;
             PlakaNo = plakaNo;
             Role = role;
-            Payments = payments;
-            ApartUser = apartUser;
-            Messages = messages;
+            PkId = PkId;
         }
-        [Key]
-        public int UserId { get; set; }
+
+
+        // BaseEntity zaten [Key] Guid PkId verdiği için BURADA [Key] KULLANMA.
+        public int UserId { get; set; }  // PK değil, normal alan
+
         public string? FullName { get; set; }
-        public int TcNo { get; set; }
+        public string TcNo { get; set; }
         public string? Email { get; set; }
-
         public string? Password { get; set; }
-
-        public int Phone { get; set; }
-
+        public string Phone { get; set; }
         public string? PlakaNo { get; set; }
+        public bool Role { get; set; } // 1 admin, 0 user
 
-        public bool Role { get; set; } // 1 ise admin, 0 ise user
-
-        public virtual ICollection<Payment>? Payments { get; set; } = new List<Payment>();
-
+        public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
         public virtual ApartUser? ApartUser { get; set; }
+        public virtual ICollection<Message> Messages { get; set; } = new List<Message>();
+    }
 
-
-
-        public virtual ICollection<Message>? Messages { get; set; }
-
-    };
-};
+}

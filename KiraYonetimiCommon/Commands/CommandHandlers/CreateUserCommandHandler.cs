@@ -1,32 +1,35 @@
-﻿using KiraYonetimi.Common.Commands.CommandRequest;
+﻿// CreateUserCommandHandler.cs
+using KiraYonetimi.Common.Commands.CommandRequest;
 using KiraYonetimi.DataAcsses.Interfaces;
+using KiraYonetimi.DataAcsses.UnitOfWorks;
 using KiraYonetimi.Entities.Entities;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
- /*
+
 namespace KiraYonetimi.Common.Commands.CommandHandlers
 {
-    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, int>
+    public sealed class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, int>
     {
-        private readonly IDatabaseUnitOfWork unitOfWork;
+        private readonly IDatabaseUnitOfWork _uow;
+        public CreateUserCommandHandler(IDatabaseUnitOfWork uow) => _uow = uow;
 
-        public CreateUserCommandHandler(IDatabaseUnitOfWork unitOfWork)
+        public async Task<int> Handle(CreateUserCommand request, CancellationToken ct)
         {
-            this.unitOfWork = unitOfWork;
-        }
+            var repo = _uow.GetRepository<User>(); // generic repo
 
-        public async Task<int> Handle(CreateUserCommand request, CancellationToken cancellationToken)
-        {
-            // Create entity
-            User user = new(request.UserId, request.FullName, request.TcNo,
-                            request.Email, request.Phone, request.PlakaNo,
-                            false, null, null, null);
+            var user = new User
+            {
+                IsActive = true,
+                FullName = request.FullName,
+                TcNo = request.TcNo,
+                Email = request.Email,
+                Password = request.Password, // hash before saving in real code
+                Phone = request.Phone,
+                PlakaNo = request.PlakaNo,
+                Role = request.Role
+            };
 
-            // Save through repository
-            await unitOfWork.Users.AddAsync(user);  // <-- assuming Users repo is exposed in UnitOfWork
-             await unitOfWork.SaveAsync();   // return number of affected rows
+            await repo.CreateAsync(user, ct);
+            return await _uow.SaveChangesAsync(ct);
         }
     }
 }
-  */
