@@ -1,15 +1,13 @@
-﻿using KiraYonetimi.Entities.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using KiraYonetimi.Entities.Common;
-using System.ComponentModel.DataAnnotations;
-namespace KiraYonetimi.Entities.Entities
+namespace KiraYonetimi.Common.Queries.QueryRequest
 {
-    public class Invoice : BaseEntity
+    public class GetInvoiceByIdResult
     {
         [Key]
         public Guid InvoicePkId { get; init; }
@@ -27,13 +25,5 @@ namespace KiraYonetimi.Entities.Entities
         public decimal InvoiceAmount { get; set; }
 
         public bool InvoiceStatus { get; set; }
-
-
-        public virtual ApartUser? ApartUser { get; set; }
-
-
-        public virtual Apartment? Apartment { get; set; }
-
-        public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
-    };
-};
+    }
+}

@@ -22,7 +22,9 @@ namespace KiraYonetimi.DataAcsses.Configurations
                 .HasForeignKey(i => i.ApartId)
             .OnDelete(DeleteBehavior.Cascade);
 
-
+            builder.Property(i => i.InvoiceId)
+              .UseIdentityAlwaysColumn()
+              .ValueGeneratedOnAdd();
 
             builder.HasMany(i => i.Payments)
                 .WithOne(p => p.Invoice)

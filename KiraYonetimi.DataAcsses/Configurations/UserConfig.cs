@@ -10,9 +10,15 @@ namespace KiraYonetimi.DataAcsses.Configurations
         {
             // PK BaseEntity.PkId ise HasKey yazma
 
+            builder.Property(u => u.UserId)
+               .UseIdentityAlwaysColumn()     // or .UseIdentityByDefaultColumn()
+               .ValueGeneratedOnAdd();
+
+            builder.HasIndex(u => u.UserId).IsUnique();
+
             builder.HasMany(p => p.Payments)
                    .WithOne(p => p.User)
-                   .HasForeignKey(p => p.UserId && p =>p.PkId);
+                   .HasForeignKey(p => p.UserId);
 
             builder.HasMany(m => m.Messages)
                    .WithOne(m => m.User)

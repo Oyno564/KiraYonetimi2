@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -16,8 +15,8 @@ namespace KiraYonetimi.API.Migrations
                 name: "ApartTypes",
                 columns: table => new
                 {
-                    ApartTypeId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PkId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ApartTypeId = table.Column<int>(type: "integer", nullable: false),
                     TypeName = table.Column<string>(type: "text", nullable: true),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -26,19 +25,20 @@ namespace KiraYonetimi.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ApartTypes", x => x.ApartTypeId);
+                    table.PrimaryKey("PK_ApartTypes", x => x.PkId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PkId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: false),
                     FullName = table.Column<string>(type: "text", nullable: true),
-                    TcNo = table.Column<int>(type: "integer", nullable: false),
+                    TcNo = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: true),
-                    Phone = table.Column<int>(type: "integer", nullable: false),
+                    Password = table.Column<string>(type: "text", nullable: true),
+                    Phone = table.Column<string>(type: "text", nullable: false),
                     PlakaNo = table.Column<string>(type: "text", nullable: true),
                     Role = table.Column<bool>(type: "boolean", nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
@@ -48,15 +48,16 @@ namespace KiraYonetimi.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.UserId);
+                    table.PrimaryKey("PK_Users", x => x.PkId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "ApartUsers",
                 columns: table => new
                 {
-                    ApartUserId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PkId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserPkId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ApartUserId = table.Column<int>(type: "integer", nullable: false),
                     UserId = table.Column<int>(type: "integer", nullable: false),
                     ApartId = table.Column<int>(type: "integer", nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
@@ -66,12 +67,12 @@ namespace KiraYonetimi.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ApartUsers", x => x.ApartUserId);
+                    table.PrimaryKey("PK_ApartUsers", x => x.PkId);
                     table.ForeignKey(
-                        name: "FK_ApartUsers_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_ApartUsers_Users_UserPkId",
+                        column: x => x.UserPkId,
                         principalTable: "Users",
-                        principalColumn: "UserId",
+                        principalColumn: "PkId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -79,13 +80,14 @@ namespace KiraYonetimi.API.Migrations
                 name: "Messages",
                 columns: table => new
                 {
-                    MessageId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PkId = table.Column<Guid>(type: "uuid", nullable: false),
+                    MessageId = table.Column<int>(type: "integer", nullable: false),
                     FromUserId = table.Column<int>(type: "integer", nullable: false),
                     ToUserId = table.Column<int>(type: "integer", nullable: false),
                     MessageContent = table.Column<string>(type: "text", nullable: true),
                     MessageDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UserId = table.Column<int>(type: "integer", nullable: false),
+                    UserPkId = table.Column<Guid>(type: "uuid", nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -93,12 +95,12 @@ namespace KiraYonetimi.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Messages", x => x.MessageId);
+                    table.PrimaryKey("PK_Messages", x => x.PkId);
                     table.ForeignKey(
-                        name: "FK_Messages_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Messages_Users_UserPkId",
+                        column: x => x.UserPkId,
                         principalTable: "Users",
-                        principalColumn: "UserId",
+                        principalColumn: "PkId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -106,14 +108,16 @@ namespace KiraYonetimi.API.Migrations
                 name: "Apartments",
                 columns: table => new
                 {
-                    ApartId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PkId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ApartId = table.Column<int>(type: "integer", nullable: false),
                     ApartBlock = table.Column<int>(type: "integer", nullable: false),
                     ApartStatus = table.Column<bool>(type: "boolean", nullable: false),
                     ApartFloor = table.Column<int>(type: "integer", nullable: false),
                     ApartNo = table.Column<int>(type: "integer", nullable: false),
                     ApartOwnerOrTenant = table.Column<bool>(type: "boolean", nullable: false),
                     ApartTypeId = table.Column<int>(type: "integer", nullable: false),
+                    ApartTypePkId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ApartUserPkId = table.Column<Guid>(type: "uuid", nullable: false),
                     ApartUserId = table.Column<int>(type: "integer", nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -122,18 +126,18 @@ namespace KiraYonetimi.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Apartments", x => x.ApartId);
+                    table.PrimaryKey("PK_Apartments", x => x.PkId);
                     table.ForeignKey(
-                        name: "FK_Apartments_ApartTypes_ApartTypeId",
-                        column: x => x.ApartTypeId,
+                        name: "FK_Apartments_ApartTypes_ApartTypePkId",
+                        column: x => x.ApartTypePkId,
                         principalTable: "ApartTypes",
-                        principalColumn: "ApartTypeId",
+                        principalColumn: "PkId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Apartments_ApartUsers_ApartUserId",
-                        column: x => x.ApartUserId,
+                        name: "FK_Apartments_ApartUsers_ApartUserPkId",
+                        column: x => x.ApartUserPkId,
                         principalTable: "ApartUsers",
-                        principalColumn: "ApartUserId",
+                        principalColumn: "PkId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -141,15 +145,15 @@ namespace KiraYonetimi.API.Migrations
                 name: "Invoices",
                 columns: table => new
                 {
-                    InvoiceId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PkId = table.Column<Guid>(type: "uuid", nullable: false),
+                    InvoiceId = table.Column<int>(type: "integer", nullable: false),
                     ApartId = table.Column<int>(type: "integer", nullable: false),
                     InvoiceMonth = table.Column<int>(type: "integer", nullable: false),
                     InvoiceYear = table.Column<int>(type: "integer", nullable: false),
                     InvoiceAmount = table.Column<decimal>(type: "numeric", nullable: false),
                     InvoiceStatus = table.Column<bool>(type: "boolean", nullable: false),
-                    ApartUserId = table.Column<int>(type: "integer", nullable: true),
-                    ApartmentApartId = table.Column<int>(type: "integer", nullable: true),
+                    ApartUserPkId = table.Column<Guid>(type: "uuid", nullable: true),
+                    ApartmentPkId = table.Column<Guid>(type: "uuid", nullable: true),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -157,30 +161,32 @@ namespace KiraYonetimi.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Invoices", x => x.InvoiceId);
+                    table.PrimaryKey("PK_Invoices", x => x.PkId);
                     table.ForeignKey(
-                        name: "FK_Invoices_ApartUsers_ApartUserId",
-                        column: x => x.ApartUserId,
+                        name: "FK_Invoices_ApartUsers_ApartUserPkId",
+                        column: x => x.ApartUserPkId,
                         principalTable: "ApartUsers",
-                        principalColumn: "ApartUserId");
+                        principalColumn: "PkId");
                     table.ForeignKey(
-                        name: "FK_Invoices_Apartments_ApartmentApartId",
-                        column: x => x.ApartmentApartId,
+                        name: "FK_Invoices_Apartments_ApartmentPkId",
+                        column: x => x.ApartmentPkId,
                         principalTable: "Apartments",
-                        principalColumn: "ApartId");
+                        principalColumn: "PkId");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Payments",
                 columns: table => new
                 {
-                    PaymentId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PkId = table.Column<Guid>(type: "uuid", nullable: false),
+                    PaymentId = table.Column<int>(type: "integer", nullable: false),
                     InvoiceId = table.Column<int>(type: "integer", nullable: false),
+                    InvoicePkId = table.Column<Guid>(type: "uuid", nullable: true),
                     UserId = table.Column<int>(type: "integer", nullable: false),
                     PaymentAmount = table.Column<decimal>(type: "numeric", nullable: false),
                     PaymentDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     PaymentMethod = table.Column<string>(type: "text", nullable: true),
+                    UserPkId = table.Column<Guid>(type: "uuid", nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -188,61 +194,60 @@ namespace KiraYonetimi.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Payments", x => x.PaymentId);
+                    table.PrimaryKey("PK_Payments", x => x.PkId);
                     table.ForeignKey(
-                        name: "FK_Payments_Invoices_InvoiceId",
-                        column: x => x.InvoiceId,
+                        name: "FK_Payments_Invoices_InvoicePkId",
+                        column: x => x.InvoicePkId,
                         principalTable: "Invoices",
-                        principalColumn: "InvoiceId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "PkId");
                     table.ForeignKey(
-                        name: "FK_Payments_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Payments_Users_UserPkId",
+                        column: x => x.UserPkId,
                         principalTable: "Users",
-                        principalColumn: "UserId",
+                        principalColumn: "PkId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Apartments_ApartTypeId",
+                name: "IX_Apartments_ApartTypePkId",
                 table: "Apartments",
-                column: "ApartTypeId");
+                column: "ApartTypePkId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Apartments_ApartUserId",
+                name: "IX_Apartments_ApartUserPkId",
                 table: "Apartments",
-                column: "ApartUserId");
+                column: "ApartUserPkId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ApartUsers_UserId",
+                name: "IX_ApartUsers_UserPkId",
                 table: "ApartUsers",
-                column: "UserId",
+                column: "UserPkId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Invoices_ApartmentApartId",
+                name: "IX_Invoices_ApartmentPkId",
                 table: "Invoices",
-                column: "ApartmentApartId");
+                column: "ApartmentPkId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Invoices_ApartUserId",
+                name: "IX_Invoices_ApartUserPkId",
                 table: "Invoices",
-                column: "ApartUserId");
+                column: "ApartUserPkId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Messages_UserId",
+                name: "IX_Messages_UserPkId",
                 table: "Messages",
-                column: "UserId");
+                column: "UserPkId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Payments_InvoiceId",
+                name: "IX_Payments_InvoicePkId",
                 table: "Payments",
-                column: "InvoiceId");
+                column: "InvoicePkId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Payments_UserId",
+                name: "IX_Payments_UserPkId",
                 table: "Payments",
-                column: "UserId");
+                column: "UserPkId");
         }
 
         /// <inheritdoc />

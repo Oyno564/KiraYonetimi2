@@ -1,6 +1,6 @@
 ﻿
 using KiraYonetimi.API.SignalR.Hubs;
-using KiraYonetimi.Common.Commands.CommandHandlers;
+
 using KiraYonetimi.Common.Commands.CommandRequest;
 using KiraYonetimi.Common.Queries.QueryHandlers;
 using KiraYonetimi.DataAcsses.Context;
@@ -55,6 +55,15 @@ builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(CreateUserCommand).Assembly);
     cfg.RegisterServicesFromAssembly(typeof(CreateUserCommandHandler).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(CreateInvoiceCommandHandler).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(GetUserByIdQueryHandler).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(CreateInvoiceCommand).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(GetAllUserHandler).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(GetAllInvoiceHandler).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(GetInvoiceByIdQueryHandler).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(GetApartTypeByIdHandler).Assembly);
+
+
 });
 
 // SignalR sadece bir kez ve options’lı

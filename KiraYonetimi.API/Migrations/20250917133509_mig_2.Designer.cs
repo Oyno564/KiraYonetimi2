@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace KiraYonetimi.API.Migrations
 {
     [DbContext(typeof(KiraContext))]
-    [Migration("20250916141141_mig_4")]
-    partial class mig_4
+    [Migration("20250917133509_mig_2")]
+    partial class mig_2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,8 +29,7 @@ namespace KiraYonetimi.API.Migrations
                 {
                     b.Property<Guid>("PkId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("PkId");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("ApartTypeId")
                         .HasColumnType("integer");
@@ -59,8 +58,7 @@ namespace KiraYonetimi.API.Migrations
                 {
                     b.Property<Guid>("PkId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("PkId");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("ApartId")
                         .HasColumnType("integer");
@@ -98,8 +96,7 @@ namespace KiraYonetimi.API.Migrations
                 {
                     b.Property<Guid>("PkId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("PkId");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("ApartBlock")
                         .HasColumnType("integer");
@@ -156,11 +153,13 @@ namespace KiraYonetimi.API.Migrations
                 {
                     b.Property<Guid>("PkId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("PkId");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("ApartId")
                         .HasColumnType("integer");
+
+                    b.Property<Guid>("ApartPkId")
+                        .HasColumnType("uuid");
 
                     b.Property<Guid?>("ApartUserPkId")
                         .HasColumnType("uuid");
@@ -182,6 +181,9 @@ namespace KiraYonetimi.API.Migrations
 
                     b.Property<int>("InvoiceMonth")
                         .HasColumnType("integer");
+
+                    b.Property<Guid>("InvoicePkId")
+                        .HasColumnType("uuid");
 
                     b.Property<bool>("InvoiceStatus")
                         .HasColumnType("boolean");
@@ -208,8 +210,7 @@ namespace KiraYonetimi.API.Migrations
                 {
                     b.Property<Guid>("PkId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("PkId");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
@@ -255,8 +256,7 @@ namespace KiraYonetimi.API.Migrations
                 {
                     b.Property<Guid>("PkId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("PkId");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
@@ -307,8 +307,7 @@ namespace KiraYonetimi.API.Migrations
                 {
                     b.Property<Guid>("PkId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("PkId");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");

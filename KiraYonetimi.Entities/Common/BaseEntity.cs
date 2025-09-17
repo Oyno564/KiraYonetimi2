@@ -19,7 +19,7 @@ namespace KiraYonetimi.Entities.Common
 
 
         [Key]
-        [Column("PkId", TypeName = "uuid")]
+
         [SwaggerSchema(ReadOnly = true)]
         public Guid   PkId { get; set; }
         public bool IsActive { get; set; }

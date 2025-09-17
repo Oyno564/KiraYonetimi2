@@ -26,8 +26,7 @@ namespace KiraYonetimi.API.Migrations
                 {
                     b.Property<Guid>("PkId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("PkId");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("ApartTypeId")
                         .HasColumnType("integer");
@@ -56,8 +55,7 @@ namespace KiraYonetimi.API.Migrations
                 {
                     b.Property<Guid>("PkId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("PkId");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("ApartId")
                         .HasColumnType("integer");
@@ -95,8 +93,7 @@ namespace KiraYonetimi.API.Migrations
                 {
                     b.Property<Guid>("PkId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("PkId");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("ApartBlock")
                         .HasColumnType("integer");
@@ -153,11 +150,13 @@ namespace KiraYonetimi.API.Migrations
                 {
                     b.Property<Guid>("PkId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("PkId");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("ApartId")
                         .HasColumnType("integer");
+
+                    b.Property<Guid>("ApartPkId")
+                        .HasColumnType("uuid");
 
                     b.Property<Guid?>("ApartUserPkId")
                         .HasColumnType("uuid");
@@ -179,6 +178,9 @@ namespace KiraYonetimi.API.Migrations
 
                     b.Property<int>("InvoiceMonth")
                         .HasColumnType("integer");
+
+                    b.Property<Guid>("InvoicePkId")
+                        .HasColumnType("uuid");
 
                     b.Property<bool>("InvoiceStatus")
                         .HasColumnType("boolean");
@@ -205,8 +207,7 @@ namespace KiraYonetimi.API.Migrations
                 {
                     b.Property<Guid>("PkId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("PkId");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
@@ -252,8 +253,7 @@ namespace KiraYonetimi.API.Migrations
                 {
                     b.Property<Guid>("PkId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("PkId");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
@@ -304,8 +304,7 @@ namespace KiraYonetimi.API.Migrations
                 {
                     b.Property<Guid>("PkId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("PkId");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
