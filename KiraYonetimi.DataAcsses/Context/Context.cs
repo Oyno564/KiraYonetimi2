@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
+
+using KiraYonetimi.API.Models.Entity;
 namespace KiraYonetimi.DataAcsses.Context
 {
     public class KiraContext : DbContext
@@ -19,6 +21,8 @@ namespace KiraYonetimi.DataAcsses.Context
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<ApartUser> ApartUsers { get; set; }
         public DbSet<Message> Messages { get; set; }
+
+       public DbSet<APIUser> APIUsers { get; set; }
     }
 };
 

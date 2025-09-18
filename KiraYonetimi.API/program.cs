@@ -9,14 +9,17 @@ using KiraYonetimi.DataAcsses.Repositories;
 using KiraYonetimi.DataAcsses.UnitOfWorks;
 using KiraYonetimi.Entities.Entities;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting.Builder;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerUI;
-
-
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using KiraYonetimi.API.Models.Entity;
 var builder = WebApplication.CreateBuilder(args);
 
 // CORS
@@ -38,11 +41,29 @@ builder.Services.AddSignalR();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(EntityFrameworkRepository<>));
 builder.Services.AddScoped<IApartUserRepository, ApartUserRepository>();
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Audience"] ?? string.Empty))
+        };
+    });
 
 // DbContext
 builder.Services.AddDbContext<KiraContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"),
     b => b.MigrationsAssembly("KiraYonetimi.DataAcsses")));
+
+
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
 
 // IRepository<> → EntityFrameworkRepository<> (tek ve dışarıda)
 builder.Services.AddScoped(typeof(IRepository<>), typeof(EntityFrameworkRepository<>));
@@ -61,7 +82,7 @@ builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(GetAllUserHandler).Assembly);
     cfg.RegisterServicesFromAssembly(typeof(GetAllInvoiceHandler).Assembly);
     cfg.RegisterServicesFromAssembly(typeof(GetInvoiceByIdQueryHandler).Assembly);
-    cfg.RegisterServicesFromAssembly(typeof(GetApartTypeByIdHandler).Assembly);
+  
 
 
 });
@@ -88,7 +109,7 @@ app.UseRouting(); // ✅ UseRouting öncesinde CORS olamaz
 
 app.UseCors("vite");    // ✅ UseCors mutlaka UseRouting'den sonra, UseAuthorization'dan önce
 app.UseAuthorization();
-
+app.UseAuthentication(); // JWT auth için
 // ----------------- Endpoints -----------------
 app.MapControllers();
 app.MapHub<NewHub>("/NewHub"); // ✅ SignalR hub mapping

@@ -12,14 +12,15 @@ public sealed class GetApartTypeByIdQueryHandler
 
     public async Task<GetApartTypeByIdResult?> Handle(GetApartTypeByIdQuery q, CancellationToken ct)
     {
-        var repo = _uow.GetRepository<User>();
-        var user = await repo.ReadAsync(q.Id, ct);
-        if (user is null) return null;
+        var repo = _uow.GetRepository<ApartType>();
+        var aparttype = await repo.ReadAsync(q.PkId, ct);
+        if (aparttype is null) return null;
 
         return new GetApartTypeByIdResult
         {
-           ApartTypePkId = user.ApartUser?.ApartTypeId,
-      TypeName = user.ApartUser?.ApartType?.TypeName,   
+     PkId = aparttype.PkId,
+        TypeName = aparttype.TypeName,
+
 
         };
     }

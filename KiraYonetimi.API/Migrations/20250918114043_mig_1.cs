@@ -16,6 +16,7 @@ namespace KiraYonetimi.API.Migrations
                 columns: table => new
                 {
                     PkId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ApartTypePkId = table.Column<Guid>(type: "uuid", nullable: false),
                     ApartTypeId = table.Column<int>(type: "integer", nullable: false),
                     TypeName = table.Column<string>(type: "text", nullable: true),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
@@ -26,6 +27,26 @@ namespace KiraYonetimi.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ApartTypes", x => x.PkId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "APIUsers",
+                columns: table => new
+                {
+                    PkId = table.Column<Guid>(type: "uuid", nullable: false),
+                    APIUserPkId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserName = table.Column<string>(type: "text", nullable: true),
+                    PasswordHash = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true),
+                    Role = table.Column<bool>(type: "boolean", nullable: true),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    DeletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_APIUsers", x => x.PkId);
                 });
 
             migrationBuilder.CreateTable(
@@ -147,7 +168,7 @@ namespace KiraYonetimi.API.Migrations
                 {
                     PkId = table.Column<Guid>(type: "uuid", nullable: false),
                     InvoiceId = table.Column<int>(type: "integer", nullable: false),
-                    ApartId = table.Column<int>(type: "integer", nullable: false),
+                    ApartPkId = table.Column<Guid>(type: "uuid", nullable: false),
                     InvoiceMonth = table.Column<int>(type: "integer", nullable: false),
                     InvoiceYear = table.Column<int>(type: "integer", nullable: false),
                     InvoiceAmount = table.Column<decimal>(type: "numeric", nullable: false),
@@ -180,8 +201,8 @@ namespace KiraYonetimi.API.Migrations
                 {
                     PkId = table.Column<Guid>(type: "uuid", nullable: false),
                     PaymentId = table.Column<int>(type: "integer", nullable: false),
-                    InvoiceId = table.Column<int>(type: "integer", nullable: false),
-                    InvoicePkId = table.Column<Guid>(type: "uuid", nullable: true),
+                    InvoicePkId = table.Column<int>(type: "integer", nullable: false),
+                    InvoicePkId1 = table.Column<Guid>(type: "uuid", nullable: true),
                     UserId = table.Column<int>(type: "integer", nullable: false),
                     PaymentAmount = table.Column<decimal>(type: "numeric", nullable: false),
                     PaymentDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -196,8 +217,8 @@ namespace KiraYonetimi.API.Migrations
                 {
                     table.PrimaryKey("PK_Payments", x => x.PkId);
                     table.ForeignKey(
-                        name: "FK_Payments_Invoices_InvoicePkId",
-                        column: x => x.InvoicePkId,
+                        name: "FK_Payments_Invoices_InvoicePkId1",
+                        column: x => x.InvoicePkId1,
                         principalTable: "Invoices",
                         principalColumn: "PkId");
                     table.ForeignKey(
@@ -240,9 +261,9 @@ namespace KiraYonetimi.API.Migrations
                 column: "UserPkId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Payments_InvoicePkId",
+                name: "IX_Payments_InvoicePkId1",
                 table: "Payments",
-                column: "InvoicePkId");
+                column: "InvoicePkId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Payments_UserPkId",
@@ -253,6 +274,9 @@ namespace KiraYonetimi.API.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "APIUsers");
+
             migrationBuilder.DropTable(
                 name: "Messages");
 

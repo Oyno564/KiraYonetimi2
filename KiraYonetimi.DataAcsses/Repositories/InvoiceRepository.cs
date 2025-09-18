@@ -20,10 +20,10 @@ namespace KiraYonetimi.DataAcsses.Repositories
             _context = context;
         }
 
-        public IEnumerable<Invoice> GetInvoiceByApartId(int InvoiceId, int ApartId)
+        public IEnumerable<Invoice> GetInvoiceByApartId(int InvoiceId, Guid ApartPkId)
         {
             return _context.Invoices
-                           .Where(u => u.InvoiceId == InvoiceId && u.ApartId == ApartId)
+                           .Where(u => u.InvoiceId == InvoiceId && u.ApartPkId == ApartPkId)
                            .ToList();
         }
 

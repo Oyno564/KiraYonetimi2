@@ -7,10 +7,6 @@ using System.Threading.Tasks;
 
 namespace KiraYonetimi.Common.Commands.CommandRequest
 {
-    public sealed class CreateApartTypeCommand : IRequest<Guid>
-    {
-
-        public Guid ApartTypePkId { get; init; }
-        public string? TypeName { get; set; }
-    }
+    public sealed record DeleteApartTypeCommand(Guid PkId, string? TypeName) : IRequest<bool>;
+   
 }

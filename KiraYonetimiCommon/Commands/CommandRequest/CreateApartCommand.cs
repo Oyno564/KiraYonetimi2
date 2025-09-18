@@ -19,10 +19,10 @@ namespace KiraYonetimi.Common.Commands.CommandRequest
 
         public bool ApartOwnerOrTenant { get; init; } // true ise owner, false ise kiracı
 
-        public int ApartTypeId { get; init; }
+      
         public Guid ApartTypePkId { get; init; }
 
         public Guid ApartUserPkId { get; init; }
-        public int ApartUserId { get; init; }
+       
     }
 }

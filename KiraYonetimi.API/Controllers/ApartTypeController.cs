@@ -1,6 +1,7 @@
 ﻿using KiraYonetimi.Common.Commands.CommandRequest;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+namespace KiraYonetimi.Common.Queries.QueryRequest;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -27,4 +28,19 @@ public class ApartTypeController : ControllerBase
         return CreatedAtRoute("GetApartTypeById", new { id }, new { id });
         // Alternatif: return CreatedAtAction(nameof(GetApartTypeById), new { id }, new { id });
     }
+
+
+    [HttpGet]
+    public async Task<IActionResult> GetAllApartType(CancellationToken ct)
+        => Ok(await _mediator.Send(new GetAllApartTypeQuery(), ct));
+
+
+
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken ct)
+    {
+        var ok = await _mediator.Send(new DeleteApartTypeCommand(id, null), ct);
+        return ok ? NoContent() : NotFound();
+    }
+
 }

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace KiraYonetimi.API.Migrations
 {
     [DbContext(typeof(KiraContext))]
-    [Migration("20250917133509_mig_2")]
-    partial class mig_2
+    [Migration("20250918114043_mig_1")]
+    partial class mig_1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,44 @@ namespace KiraYonetimi.API.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("KiraYonetimi.API.Models.Entity.APIUser", b =>
+                {
+                    b.Property<Guid>("PkId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("APIUserPkId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DeletedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("text");
+
+                    b.Property<bool?>("Role")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("text");
+
+                    b.HasKey("PkId");
+
+                    b.ToTable("APIUsers");
+                });
+
             modelBuilder.Entity("KiraYonetimi.Entities.Entities.ApartType", b =>
                 {
                     b.Property<Guid>("PkId")
@@ -33,6 +71,9 @@ namespace KiraYonetimi.API.Migrations
 
                     b.Property<int>("ApartTypeId")
                         .HasColumnType("integer");
+
+                    b.Property<Guid>("ApartTypePkId")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
@@ -155,9 +196,6 @@ namespace KiraYonetimi.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int>("ApartId")
-                        .HasColumnType("integer");
-
                     b.Property<Guid>("ApartPkId")
                         .HasColumnType("uuid");
 
@@ -181,9 +219,6 @@ namespace KiraYonetimi.API.Migrations
 
                     b.Property<int>("InvoiceMonth")
                         .HasColumnType("integer");
-
-                    b.Property<Guid>("InvoicePkId")
-                        .HasColumnType("uuid");
 
                     b.Property<bool>("InvoiceStatus")
                         .HasColumnType("boolean");
@@ -264,10 +299,10 @@ namespace KiraYonetimi.API.Migrations
                     b.Property<DateTime>("DeletedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("InvoiceId")
+                    b.Property<int>("InvoicePkId")
                         .HasColumnType("integer");
 
-                    b.Property<Guid?>("InvoicePkId")
+                    b.Property<Guid?>("InvoicePkId1")
                         .HasColumnType("uuid");
 
                     b.Property<bool>("IsActive")
@@ -296,7 +331,7 @@ namespace KiraYonetimi.API.Migrations
 
                     b.HasKey("PkId");
 
-                    b.HasIndex("InvoicePkId");
+                    b.HasIndex("InvoicePkId1");
 
                     b.HasIndex("UserPkId");
 
@@ -412,7 +447,7 @@ namespace KiraYonetimi.API.Migrations
                 {
                     b.HasOne("KiraYonetimi.Entities.Entities.Invoice", "Invoice")
                         .WithMany("Payments")
-                        .HasForeignKey("InvoicePkId");
+                        .HasForeignKey("InvoicePkId1");
 
                     b.HasOne("KiraYonetimi.Entities.Entities.User", "User")
                         .WithMany("Payments")

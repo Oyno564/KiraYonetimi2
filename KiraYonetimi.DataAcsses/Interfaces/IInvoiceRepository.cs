@@ -8,7 +8,7 @@ namespace KiraYonetimi.DataAcsses.Interfaces
 {
    public  interface IInvoiceRepository
     {
-        IEnumerable<Invoice> GetInvoiceByApartId(int InvoiceId, int ApartId);
+        IEnumerable<Invoice> GetInvoiceByApartId(int InvoiceId, Guid ApartPkId);
 
     
     }

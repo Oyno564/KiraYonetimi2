@@ -24,7 +24,7 @@ namespace KiraYonetimi.API.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateUserCommand command, CancellationToken ct)
+        public async Task<IActionResult> Create([FromBody] CreateApartCommand command, CancellationToken ct)
         {
             if (!ModelState.IsValid) return ValidationProblem(ModelState);
 

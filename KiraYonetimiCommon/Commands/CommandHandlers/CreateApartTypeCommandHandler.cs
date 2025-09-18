@@ -10,15 +10,17 @@ public sealed class CreateApartTypeCommandHandler : IRequestHandler<CreateApartT
 
     public async Task<Guid> Handle(CreateApartTypeCommand r, CancellationToken ct)
     {
-        var repo = _uow.GetRepository<ApartType>();
-        var aparttype = new ApartType
-        {
+        var name = (r.TypeName ?? "").Trim();
+     
 
-          
+        var repo = _uow.GetRepository<ApartType>();
+        var apartType = new ApartType
+        {
+            TypeName = name
         };
 
-        await repo.CreateAsync(aparttype, ct);
+        await repo.CreateAsync(apartType, ct);
         await _uow.SaveChangesAsync(ct);
-        return aparttype.PkId; // return Guid
+        return apartType.PkId; // Guid PK
     }
 }

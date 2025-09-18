@@ -1,13 +1,4 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using KiraYonetimi.Common.Queries.QueryRequest;
+using MediatR;
 
-namespace KiraYonetimi.Common.Queries.QueryRequest
-{
-    public class GetInvoiceByIdQuery(Guid Id) : IRequest<GetInvoiceByIdResult>
-    {
-    }
-}
+public sealed record GetInvoiceByIdQuery(Guid PkId) : IRequest<GetInvoiceByIdResult?>;

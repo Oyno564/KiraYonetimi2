@@ -19,8 +19,7 @@ public sealed class CreateApartCommandHandler : IRequestHandler<CreateApartComma
                     ApartFloor = r.ApartFloor,
                         ApartNo = r.ApartNo,
                         ApartOwnerOrTenant = r.ApartOwnerOrTenant,
-                            ApartTypeId = r.ApartTypeId,
-                            ApartUserId = r.ApartUserId,
+                         
                                 PkId = r.ApartPkId
         };
 

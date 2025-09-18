@@ -11,14 +11,14 @@ namespace KiraYonetimi.Entities.Entities
 {
     public class Invoice : BaseEntity
     {
-        [Key]
-        public Guid InvoicePkId { get; init; }
+     
+    
 
         public int InvoiceId { get; set; }
 
         public Guid ApartPkId { get; set; }
 
-        public int ApartId { get; set; }
+      
 
         public int InvoiceMonth { get; set; }
 

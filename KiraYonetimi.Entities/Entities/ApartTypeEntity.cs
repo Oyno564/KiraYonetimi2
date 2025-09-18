@@ -16,7 +16,7 @@ namespace KiraYonetimi.Entities.Entities
     {
 
        
-
+        public Guid ApartTypePkId { get; set; }
         public int ApartTypeId { get; set; }
         public string? TypeName { get; set; }
 

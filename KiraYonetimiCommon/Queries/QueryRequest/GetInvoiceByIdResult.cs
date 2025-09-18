@@ -10,7 +10,7 @@ namespace KiraYonetimi.Common.Queries.QueryRequest
     public class GetInvoiceByIdResult
     {
         [Key]
-        public Guid InvoicePkId { get; init; }
+        public Guid PkId { get; init; }
 
         public int InvoiceId { get; set; }
 

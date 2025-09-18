@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace KiraYonetimi.Common.Queries.QueryRequest
 {
-    public sealed record GetApartTypeByIdQuery(Guid PkId) : IRequest<GetApartTypeByIdResult?>;    
-    
+  public  class GetAllApartTypeQuery : IRequest<IList<GetAllApartTypeQueryResult>>
+    {
+    }
 }

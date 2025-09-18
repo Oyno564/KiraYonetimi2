@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace KiraYonetimi.Common.Queries.QueryRequest
 {
-  public  class GetApartTypeByIdResult
+   public  class GetAllApartTypeQueryResult
     {
+        public Guid ApartTypePkId { get; set; }
 
-        public Guid PkId { get; set; }
-        public int ApartTypeId { get; set; }
         public string? TypeName { get; set; }
+
+        public int ApartTypeId { get; set; }
     }
 }

@@ -22,7 +22,7 @@ namespace KiraYonetimi.Entities.Entities
             Phone = phone;
             PlakaNo = plakaNo;
             Role = role;
-            PkId = PkId;
+            this.PkId = PkId;
         }
 
 

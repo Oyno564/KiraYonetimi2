@@ -27,7 +27,7 @@ namespace KiraYonetimi.Common.Queries.QueryHandlers
                 .Select(i => new GetAllInvoiceQueryResult
                 {
                         InvoiceId = i.InvoiceId,
-                        ApartId = i.ApartId,
+                        ApartPkId = i.ApartPkId,
                         InvoiceMonth = i.InvoiceMonth,
                         InvoiceYear = i.InvoiceYear,
                         InvoiceAmount = i.InvoiceAmount,

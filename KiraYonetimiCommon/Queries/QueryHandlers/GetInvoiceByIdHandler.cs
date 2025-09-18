@@ -13,7 +13,7 @@ public sealed class GetInvoiceByIdQueryHandler
     public async Task<GetInvoiceByIdResult?> Handle(GetInvoiceByIdQuery q, CancellationToken ct)
     {
         var repo = _uow.GetRepository<Invoice>();
-        var invoice = await repo.ReadAsync(q.Id, ct);
+        var invoice = await repo.ReadAsync(q.PkId, ct);
         if (invoice is null) return null;
 
         return new GetInvoiceByIdResult
@@ -23,7 +23,8 @@ public sealed class GetInvoiceByIdQueryHandler
             InvoiceMonth = invoice.InvoiceMonth,
             InvoiceYear = invoice.InvoiceYear,
             InvoiceStatus = invoice.InvoiceStatus,
-            ApartId = invoice.ApartId
+            ApartPkId = invoice.ApartPkId,
+            PkId = invoice.PkId
 
 
         };

@@ -14,7 +14,7 @@ namespace KiraYonetimi.Entities.Entities
       
         public int PaymentId { get; set; }
 
-        public int InvoiceId { get; set; }
+        public int InvoicePkId { get; set; }
 
         public virtual Invoice? Invoice { get; set; }
 
