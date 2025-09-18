@@ -53,14 +53,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Audience"] ?? string.Empty))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? string.Empty))
         };
     });
 
 // DbContext
 builder.Services.AddDbContext<KiraContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"),
-    b => b.MigrationsAssembly("KiraYonetimi.DataAcsses")));
+    b => b.MigrationsAssembly("KiraYonetimi.DataAccess")));
 
 
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
@@ -105,12 +105,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseRouting(); // ✅ UseRouting öncesinde CORS olamaz
-
-app.UseCors("vite");    // ✅ UseCors mutlaka UseRouting'den sonra, UseAuthorization'dan önce
+app.UseRouting();
+app.UseCors("vite");          // before auth & MapControllers
+app.UseAuthentication();
 app.UseAuthorization();
-app.UseAuthentication(); // JWT auth için
-// ----------------- Endpoints -----------------
 app.MapControllers();
 app.MapHub<NewHub>("/NewHub"); // ✅ SignalR hub mapping
 

@@ -15,7 +15,7 @@ namespace KiraYonetimi.Entities.Entities
         public Guid UserPkId { get; set; }
         public int ApartUserId { get; set; } // PK değil
         public int UserId { get; set; }
-        public int ApartId { get; set; }
+        public Guid ApartId { get; set; }
         public virtual User User { get; set; } = default!;
         public virtual ICollection<Apartment>? Apartments { get; set; } = new List<Apartment>();
         public virtual ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();

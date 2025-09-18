@@ -10,9 +10,9 @@ namespace KiraYonetimi.DataAcsses.Repositories
     {
         public ApartUserRepository(KiraContext context) : base(context) { }
 
-        public async Task<List<ApartUser>> GetByApartIdAsync(int apartId, int? userId = null, CancellationToken ct = default)
+        public async Task<List<ApartUser>> GetByApartIdAsync(int apartuserId, int? userId = null, CancellationToken ct = default)
         {
-            var q = Table.AsNoTracking().Where(x => x.ApartId == apartId);
+            var q = Table.AsNoTracking().Where(x => x.ApartUserId == apartuserId);
             if (userId.HasValue) q = q.Where(x => x.UserId == userId.Value);
             return await q.ToListAsync(ct);
         }
