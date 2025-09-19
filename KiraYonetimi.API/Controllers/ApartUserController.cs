@@ -1,4 +1,4 @@
-﻿using KiraYonetimi.Common.Commands.CommandRequest;
+﻿/* using KiraYonetimi.Common.Commands.CommandRequest;
 using KiraYonetimi.Common.Queries.QueryRequest;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -34,3 +34,4 @@ namespace KiraYonetimi.API.Controllers
         }
     }
 }
+   */

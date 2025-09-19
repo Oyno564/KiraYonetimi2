@@ -10,7 +10,7 @@ namespace KiraYonetimi.Common.Queries.QueryRequest
     {
 
         public Guid PkId { get; set; }
-        public int ApartTypeId { get; set; }
+     
         public string? TypeName { get; set; }
     }
 }

@@ -37,8 +37,8 @@ namespace KiraYonetimi.Entities.Entities
         public string? PlakaNo { get; set; }
         public bool Role { get; set; } // 1 admin, 0 user
 
-        public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
-        public virtual ApartUser? ApartUser { get; set; }
+     
+   
         public virtual ICollection<Message> Messages { get; set; } = new List<Message>();
     }
 

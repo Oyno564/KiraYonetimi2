@@ -1,29 +1,42 @@
 ﻿using KiraYonetimi.Entities.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KiraYonetimi.DataAcsses.Configurations
 {
-
-    public class ApartConfig : IEntityTypeConfiguration<Apartment>
+    public class ApartmentConfig : IEntityTypeConfiguration<Apartment>
     {
         public void Configure(EntityTypeBuilder<Apartment> builder)
         {
-            builder.HasKey(d => d.ApartId);
-            builder.Property(u => u.ApartId).HasColumnName("UserId");
-            builder.HasOne(d => d.ApartType)
-                .WithMany(dt => dt.Apartments)
-                .HasForeignKey(d => d.ApartTypeId);
+            // Table & key
+            builder.ToTable("Apartments");
+            builder.HasKey(a => a.PkId);
 
-            builder.HasOne(d => d.ApartUser)        
-                .WithMany(au => au.Apartments)
-                .HasForeignKey(d => d.ApartUserId);
+            // ----------------------------
+            // Required: ApartType (Option A)
+            // ----------------------------
+            builder.Property(a => a.ApartTypePkId)
+                   .IsRequired(); // non-nullable FK
+
+            builder.HasOne(a => a.ApartType)
+                   .WithMany(t => t.Apartments)
+                   .HasForeignKey(a => a.ApartTypePkId)
+                   .OnDelete(DeleteBehavior.Restrict); // prevent deleting type if apartments exist
+
+            // ----------------------------
+            // Optional: ApartUser (make nullable)
+            // ----------------------------
+          
+            // If ApartUser must be required instead, use:
+            // builder.Property(a => a.ApartUserPkId).IsRequired();
+            // builder.HasOne(a => a.ApartUser)
+            //        .WithMany(u => u.Apartments)
+            //        .HasForeignKey(a => a.ApartUserPkId)
+            //        .OnDelete(DeleteBehavior.Restrict);
+
+            // ----------------------------
+            // Useful indexes (optional)
+          
         }
-    };
-
-};
+    }
+}

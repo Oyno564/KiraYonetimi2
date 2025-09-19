@@ -1,35 +1,27 @@
-﻿
-using KiraYonetimi.API.Models.Entity;
-using KiraYonetimi.Common.Commands.CommandRequest;
-using KiraYonetimi.Common.Queries.QueryRequest;
+﻿using KiraYonetimi.Common.Commands.CommandRequest;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Controllers;
-namespace KiraYonetimi.API.Controllers
+
+[ApiController]
+[Route("api/[controller]/[action]")]
+public class ApartController : ControllerBase
 {
-    [Route("api/[controller]/[action]")]
-    [ApiController]
+    private readonly IMediator _mediator;
+    public ApartController(IMediator mediator) =>
+        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+
+    [HttpPost]
+public async Task<IActionResult> Create([FromBody] CreateApartCommand cmd, CancellationToken ct)
+{
+    if (cmd is null) return BadRequest("Request body is required.");
+    if (!ModelState.IsValid) return ValidationProblem(ModelState);
+
+    var id = await _mediator.Send(cmd, ct);
+
+    // no GetById route -> just return 201 Created with the new id in the body
+    return Created(string.Empty, new { id });
+}
+
 
   
-    public class ApartController(IMediator mediator) : BaseController(mediator)
-    {
-        private readonly IMediator _mediator;
-
-        [HttpGet]
-        public async Task<IActionResult> GetAllAparts()
-        {
-            var response = await _mediator.Send(new GetAllApartQuery());
-            return Ok(response);
-        }
-
-
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateApartCommand command, CancellationToken ct)
-        {
-            if (!ModelState.IsValid) return ValidationProblem(ModelState);
-
-            Guid id = await _mediator.Send(command, ct);     // now returns Guid
-            return CreatedAtRoute("CreateApart", new { id }, new { id });
-        }
-    }
 }

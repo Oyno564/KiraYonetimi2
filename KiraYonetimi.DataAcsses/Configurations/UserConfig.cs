@@ -16,9 +16,7 @@ namespace KiraYonetimi.DataAcsses.Configurations
 
             builder.HasIndex(u => u.UserId).IsUnique();
 
-            builder.HasMany(p => p.Payments)
-                   .WithOne(p => p.User)
-                   .HasForeignKey(p => p.UserId);
+     
 
             builder.HasMany(m => m.Messages)
                    .WithOne(m => m.User)

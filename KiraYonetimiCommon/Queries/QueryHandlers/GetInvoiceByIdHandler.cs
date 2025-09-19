@@ -1,8 +1,9 @@
-﻿// Handler
-using KiraYonetimi.Common.Queries.QueryRequest;
+﻿using KiraYonetimi.Common.Queries.QueryRequest;
 using KiraYonetimi.DataAcsses.UnitOfWorks;
 using KiraYonetimi.Entities.Entities;
 using MediatR;
+using System.Threading;
+using System.Threading.Tasks;
 
 public sealed class GetInvoiceByIdQueryHandler
     : IRequestHandler<GetInvoiceByIdQuery, GetInvoiceByIdResult?>
@@ -18,15 +19,14 @@ public sealed class GetInvoiceByIdQueryHandler
 
         return new GetInvoiceByIdResult
         {
-          InvoiceAmount = invoice.InvoiceAmount,
-            InvoiceId = invoice.InvoiceId,
-            InvoiceMonth = invoice.InvoiceMonth,
-            InvoiceYear = invoice.InvoiceYear,
+            PkId          = invoice.PkId,
+            InvoiceId     = invoice.InvoiceId,
+            InvoiceMonth  = invoice.InvoiceMonth,
+            InvoiceYear   = invoice.InvoiceYear,
+            InvoiceAmount = invoice.InvoiceAmount,
             InvoiceStatus = invoice.InvoiceStatus,
-            ApartPkId = invoice.ApartPkId,
-            PkId = invoice.PkId
-
-
+            ApartmentPkId = invoice.ApartmentPkId,  // << renamed
+            ApartUserPkId = invoice.ApartUserPkId   // << optional but useful
         };
     }
 }

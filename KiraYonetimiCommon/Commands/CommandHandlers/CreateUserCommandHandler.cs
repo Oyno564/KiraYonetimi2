@@ -20,7 +20,8 @@ public sealed class CreateUserCommandHandler : IRequestHandler<CreateUserCommand
             Password = r.Password,   // hash in real code
             Phone = r.Phone,
             PlakaNo = r.PlakaNo,
-            Role = r.Role
+            Role = r.Role,
+        
         };
 
         await repo.CreateAsync(user, ct);

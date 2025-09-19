@@ -39,7 +39,7 @@ namespace KiraYonetimi.Common.Queries.QueryHandlers
                     ApartFloor = a.ApartFloor,
                     ApartNo = a.ApartNo,
                     ApartOwnerOrTenant = a.ApartOwnerOrTenant,
-                    ApartTypeId = a.ApartTypeId
+                  
 
                 })
                 .ToListAsync(cancellationToken);

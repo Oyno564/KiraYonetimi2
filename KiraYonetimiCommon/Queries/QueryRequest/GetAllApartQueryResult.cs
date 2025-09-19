@@ -16,6 +16,6 @@ namespace KiraYonetimi.Common.Queries.QueryRequest
         public int ApartNo { get; set; }
         public bool ApartOwnerOrTenant { get; set; } // true ise owner, false ise tenant
 
-        public int ApartTypeId { get; set; }
+       
     }
 }

@@ -39,7 +39,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(EntityFrameworkRepository<>));
-builder.Services.AddScoped<IApartUserRepository, ApartUserRepository>();
+
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -66,7 +66,7 @@ builder.Services.AddDbContext<KiraContext>(options =>
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
 
 // IRepository<> → EntityFrameworkRepository<> (tek ve dışarıda)
-builder.Services.AddScoped(typeof(IRepository<>), typeof(EntityFrameworkRepository<>));
+
 builder.Services.AddScoped<IDatabaseUnitOfWork, DatabaseUnitOfWork>();
 // (Varsa) Unit of Work
 // builder.Services.AddScoped<IDatabaseUnitOfWork, DatabaseUnitOfWork>();

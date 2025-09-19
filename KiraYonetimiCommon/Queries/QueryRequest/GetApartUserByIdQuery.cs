@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿/* using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,3 +9,4 @@ namespace KiraYonetimi.Common.Queries.QueryRequest
 {
     public sealed record GetApartUserByIdQuery(Guid PkId) : IRequest<GetApartUserByIdResult?>;
 }
+  */

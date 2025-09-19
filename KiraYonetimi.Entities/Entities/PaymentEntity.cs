@@ -1,4 +1,4 @@
-﻿using KiraYonetimi.Entities.Entities;
+﻿/* using KiraYonetimi.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,4 +31,4 @@ namespace KiraYonetimi.Entities.Entities
         public virtual  User? User { get; set; }
 
     }
-}
+} */

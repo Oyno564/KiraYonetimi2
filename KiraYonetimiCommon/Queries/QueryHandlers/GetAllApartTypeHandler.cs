@@ -36,7 +36,7 @@ namespace KiraYonetimi.Common.Queries.QueryHandlers
             return await _context.ApartTypes
                 .Select(u => new GetAllApartTypeQueryResult
                 {
-                  ApartTypeId = u.ApartTypeId,
+                  
                   TypeName = u.TypeName,
                   ApartTypePkId = u.PkId
                 })

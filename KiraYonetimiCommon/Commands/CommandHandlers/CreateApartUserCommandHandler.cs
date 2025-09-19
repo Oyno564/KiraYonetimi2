@@ -1,4 +1,4 @@
-﻿using KiraYonetimi.Common.Commands.CommandRequest;
+﻿/* using KiraYonetimi.Common.Commands.CommandRequest;
 using KiraYonetimi.DataAcsses.UnitOfWorks;
 using KiraYonetimi.Entities.Entities;
 using MediatR;
@@ -60,3 +60,4 @@ namespace KiraYonetimi.Common.Commands.CommandHandler
         }
     }
 }
+   */

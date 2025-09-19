@@ -12,6 +12,6 @@ namespace KiraYonetimi.Common.Queries.QueryRequest
 
         public string? TypeName { get; set; }
 
-        public int ApartTypeId { get; set; }
+      
     }
 }

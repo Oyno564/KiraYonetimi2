@@ -20,11 +20,16 @@ public sealed class CreateApartCommandHandler : IRequestHandler<CreateApartComma
                         ApartNo = r.ApartNo,
                         ApartOwnerOrTenant = r.ApartOwnerOrTenant,
                          
-                                PkId = r.ApartPkId
+
+
+
         };
 
         await repo.CreateAsync(apartment, ct);
         await _uow.SaveChangesAsync(ct);
         return apartment.PkId; // return Guid
+
+
+
     }
 }

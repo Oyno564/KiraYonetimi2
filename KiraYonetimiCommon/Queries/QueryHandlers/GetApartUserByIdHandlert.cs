@@ -1,4 +1,4 @@
-﻿using KiraYonetimi.Common.Queries.QueryRequest;
+﻿/* using KiraYonetimi.Common.Queries.QueryRequest;
 using KiraYonetimi.DataAcsses.UnitOfWorks;
 using KiraYonetimi.Entities.Entities;
 using MediatR;
@@ -19,20 +19,20 @@ namespace KiraYonetimi.Common.Queries.QueryHandlers
         {
             var auRepo = _uow.GetRepository<ApartUser>();
 
-            // IQueryable<T> Query özelliğin varsa SELECT ile direkt proje et (Include gerektirmez)
             var dto = await auRepo.Query
                 .Where(x => x.PkId == q.PkId)
                 .Select(x => new GetApartUserByIdResult
                 {
-                  //  PkId = x.PkId,
-                    UserPkId = x.UserPkId,
-                    ApartUserId = x.ApartUserId,
-                    UserId = x.User.UserId,
-               
+                    PkId = x.PkId,          // ApartUser’s Guid PK
+                    UserPkId = x.UserPkId,      // FK -> User.PkId
+                    UserId = x.User.UserId,   // if your User has an int business id
+                    // optional extras:
+         
                 })
                 .SingleOrDefaultAsync(ct);
 
-            return dto; // yoksa null -> controller 404 döner
+            return dto;
         }
     }
 }
+ */

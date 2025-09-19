@@ -1,4 +1,4 @@
-﻿using KiraYonetimi.Entities.Entities;
+﻿/* using KiraYonetimi.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,3 +25,4 @@ namespace KiraYonetimi.Common.Queries.QueryRequest
         public string? PaymentMethod { get; set; }
     }
 }
+*/

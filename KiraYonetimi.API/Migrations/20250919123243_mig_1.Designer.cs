@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace KiraYonetimi.API.Migrations
 {
     [DbContext(typeof(KiraContext))]
-    [Migration("20250918114043_mig_1")]
+    [Migration("20250919123243_mig_1")]
     partial class mig_1
     {
         /// <inheritdoc />
@@ -24,6 +24,52 @@ namespace KiraYonetimi.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("Apartment", b =>
+                {
+                    b.Property<Guid>("PkId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("ApartBlock")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ApartFloor")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ApartId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ApartNo")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("ApartOwnerOrTenant")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("ApartStatus")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("ApartTypePkId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DeletedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("PkId");
+
+                    b.HasIndex("ApartTypePkId");
+
+                    b.ToTable("Apartments");
+                });
 
             modelBuilder.Entity("KiraYonetimi.API.Models.Entity.APIUser", b =>
                 {
@@ -69,12 +115,6 @@ namespace KiraYonetimi.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int>("ApartTypeId")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("ApartTypePkId")
-                        .HasColumnType("uuid");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
@@ -95,108 +135,10 @@ namespace KiraYonetimi.API.Migrations
                     b.ToTable("ApartTypes");
                 });
 
-            modelBuilder.Entity("KiraYonetimi.Entities.Entities.ApartUser", b =>
-                {
-                    b.Property<Guid>("PkId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("ApartId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ApartUserId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("DeletedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("UserPkId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("PkId");
-
-                    b.HasIndex("UserPkId")
-                        .IsUnique();
-
-                    b.ToTable("ApartUsers");
-                });
-
-            modelBuilder.Entity("KiraYonetimi.Entities.Entities.Apartment", b =>
-                {
-                    b.Property<Guid>("PkId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("ApartBlock")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ApartFloor")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ApartId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ApartNo")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("ApartOwnerOrTenant")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("ApartStatus")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("ApartTypeId")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("ApartTypePkId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("ApartUserId")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("ApartUserPkId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("DeletedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("PkId");
-
-                    b.HasIndex("ApartTypePkId");
-
-                    b.HasIndex("ApartUserPkId");
-
-                    b.ToTable("Apartments");
-                });
-
             modelBuilder.Entity("KiraYonetimi.Entities.Entities.Invoice", b =>
                 {
                     b.Property<Guid>("PkId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ApartPkId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid?>("ApartUserPkId")
@@ -233,8 +175,6 @@ namespace KiraYonetimi.API.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("PkId");
-
-                    b.HasIndex("ApartUserPkId");
 
                     b.HasIndex("ApartmentPkId");
 
@@ -287,57 +227,6 @@ namespace KiraYonetimi.API.Migrations
                     b.ToTable("Messages");
                 });
 
-            modelBuilder.Entity("KiraYonetimi.Entities.Entities.Payment", b =>
-                {
-                    b.Property<Guid>("PkId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("DeletedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("InvoicePkId")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid?>("InvoicePkId1")
-                        .HasColumnType("uuid");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<decimal>("PaymentAmount")
-                        .HasColumnType("numeric");
-
-                    b.Property<DateTime>("PaymentDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("PaymentId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("PaymentMethod")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("UserPkId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("PkId");
-
-                    b.HasIndex("InvoicePkId1");
-
-                    b.HasIndex("UserPkId");
-
-                    b.ToTable("Payments");
-                });
-
             modelBuilder.Entity("KiraYonetimi.Entities.Entities.User", b =>
                 {
                     b.Property<Guid>("PkId")
@@ -387,18 +276,7 @@ namespace KiraYonetimi.API.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("KiraYonetimi.Entities.Entities.ApartUser", b =>
-                {
-                    b.HasOne("KiraYonetimi.Entities.Entities.User", "User")
-                        .WithOne("ApartUser")
-                        .HasForeignKey("KiraYonetimi.Entities.Entities.ApartUser", "UserPkId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("KiraYonetimi.Entities.Entities.Apartment", b =>
+            modelBuilder.Entity("Apartment", b =>
                 {
                     b.HasOne("KiraYonetimi.Entities.Entities.ApartType", "ApartType")
                         .WithMany("Apartments")
@@ -406,28 +284,14 @@ namespace KiraYonetimi.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("KiraYonetimi.Entities.Entities.ApartUser", "ApartUser")
-                        .WithMany("Apartments")
-                        .HasForeignKey("ApartUserPkId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("ApartType");
-
-                    b.Navigation("ApartUser");
                 });
 
             modelBuilder.Entity("KiraYonetimi.Entities.Entities.Invoice", b =>
                 {
-                    b.HasOne("KiraYonetimi.Entities.Entities.ApartUser", "ApartUser")
-                        .WithMany("Invoices")
-                        .HasForeignKey("ApartUserPkId");
-
-                    b.HasOne("KiraYonetimi.Entities.Entities.Apartment", "Apartment")
+                    b.HasOne("Apartment", "Apartment")
                         .WithMany("Invoices")
                         .HasForeignKey("ApartmentPkId");
-
-                    b.Navigation("ApartUser");
 
                     b.Navigation("Apartment");
                 });
@@ -443,21 +307,9 @@ namespace KiraYonetimi.API.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("KiraYonetimi.Entities.Entities.Payment", b =>
+            modelBuilder.Entity("Apartment", b =>
                 {
-                    b.HasOne("KiraYonetimi.Entities.Entities.Invoice", "Invoice")
-                        .WithMany("Payments")
-                        .HasForeignKey("InvoicePkId1");
-
-                    b.HasOne("KiraYonetimi.Entities.Entities.User", "User")
-                        .WithMany("Payments")
-                        .HasForeignKey("UserPkId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Invoice");
-
-                    b.Navigation("User");
+                    b.Navigation("Invoices");
                 });
 
             modelBuilder.Entity("KiraYonetimi.Entities.Entities.ApartType", b =>
@@ -465,30 +317,9 @@ namespace KiraYonetimi.API.Migrations
                     b.Navigation("Apartments");
                 });
 
-            modelBuilder.Entity("KiraYonetimi.Entities.Entities.ApartUser", b =>
-                {
-                    b.Navigation("Apartments");
-
-                    b.Navigation("Invoices");
-                });
-
-            modelBuilder.Entity("KiraYonetimi.Entities.Entities.Apartment", b =>
-                {
-                    b.Navigation("Invoices");
-                });
-
-            modelBuilder.Entity("KiraYonetimi.Entities.Entities.Invoice", b =>
-                {
-                    b.Navigation("Payments");
-                });
-
             modelBuilder.Entity("KiraYonetimi.Entities.Entities.User", b =>
                 {
-                    b.Navigation("ApartUser");
-
                     b.Navigation("Messages");
-
-                    b.Navigation("Payments");
                 });
 #pragma warning restore 612, 618
         }

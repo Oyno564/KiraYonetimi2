@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿/* using MediatR;
 using System.ComponentModel.DataAnnotations;
 
 namespace KiraYonetimi.Common.Commands.CommandRequest
@@ -10,3 +10,4 @@ namespace KiraYonetimi.Common.Commands.CommandRequest
         public Guid? ApartmentPkId { get; init; }
     }
 }
+  */

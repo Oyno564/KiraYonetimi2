@@ -1,4 +1,4 @@
-﻿using KiraYonetimi.Entities.Entities;
+﻿/* using KiraYonetimi.Entities.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -8,28 +8,29 @@ namespace KiraYonetimi.DataAcsses.Configurations
     {
         public void Configure(EntityTypeBuilder<ApartUser> builder)
         {
-            // PK BaseEntity.PkId ise HasKey yazma
-
+            // PK is BaseEntity.PkId (Guid)
             builder.Property(x => x.UserPkId).IsRequired();
 
+            // 1–1 ApartUser <-> User by UserPkId
             builder.HasOne(au => au.User)
-        .WithOne(u => u.ApartUser)
-        .HasForeignKey<ApartUser>(au => au.UserPkId)     // 1–1 by PK Guid
-        .OnDelete(DeleteBehavior.Restrict);
+                   .WithOne(u => u.ApartUser)
+                   .HasForeignKey<ApartUser>(au => au.UserPkId)
+                   .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasIndex(au => au.UserPkId).IsUnique();
 
+            // 1–N ApartUser -> Apartments (FK on Apartment: ApartUserPkId)
             builder.HasMany(au => au.Apartments)
                    .WithOne(a => a.ApartUser)
-                   .HasForeignKey(a => a.ApartUserId);
+                   .HasForeignKey(a => a.ApartUserPkId)
+                   .OnDelete(DeleteBehavior.SetNull);
 
-            builder.HasOne(au => au.Apartments)
-       .WithMany(a => a.ApartUser)                     // if you allow many
-       .HasForeignKey(au => au.ApartmentPkId)           // GUID FK
-       .OnDelete(DeleteBehavior.SetNull);
-
+            // 1–N ApartUser -> Invoices (FK on Invoice: ApartUserPkId)
             builder.HasMany(au => au.Invoices)
-                   .WithOne(i => i.ApartUser);
+                   .WithOne(i => i.ApartUser)
+                   .HasForeignKey(i => i.ApartUserPkId)
+                   .OnDelete(DeleteBehavior.SetNull);
         }
     }
-}   // ← burada bitiyor, SONRASINDA ';' YOK
+}
+ */

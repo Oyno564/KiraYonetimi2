@@ -16,10 +16,10 @@ namespace KiraYonetimi.Entities.Entities
     {
 
        
-        public Guid ApartTypePkId { get; set; }
-        public int ApartTypeId { get; set; }
+      //  public Guid ApartTypePkId { get; set; }
+   
         public string? TypeName { get; set; }
 
-        public virtual ICollection<Apartment>? Apartments { get; set; }
+        public virtual ICollection<Apartment> Apartments { get; set; } = new List<Apartment>();
     }
 }

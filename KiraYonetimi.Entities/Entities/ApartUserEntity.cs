@@ -1,25 +1,15 @@
-﻿using KiraYonetimi.Entities.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿ /* // ApartUser.cs
 using KiraYonetimi.Entities.Common;
-using System.ComponentModel.DataAnnotations;
+using KiraYonetimi.Entities.Entities;
 
-
-namespace KiraYonetimi.Entities.Entities
+public class ApartUser : BaseEntity
 {
-    public class ApartUser : BaseEntity
-    {
-        public Guid UserPkId { get; set; }
-        public int ApartUserId { get; set; } // PK değil
-        public int UserId { get; set; }
-        public Guid ApartId { get; set; }
-        public virtual User User { get; set; } = default!;
-        public virtual ICollection<Apartment>? Apartments { get; set; } = new List<Apartment>();
-        public virtual ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
-    }
+    public Guid UserPkId { get; set; }                 // FK -> User.PkId
+    public virtual User User { get; set; } = default!; // 1–1
 
+    public Guid? ApartUserPkId { get; set; }
+
+    public virtual ICollection<Apartment> Apartments { get; set; } = new List<Apartment>();
+    public virtual ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
 }
-
+ */

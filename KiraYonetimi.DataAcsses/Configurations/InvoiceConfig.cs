@@ -6,21 +6,24 @@ public class InvoiceConfig : IEntityTypeConfiguration<Invoice>
 {
     public void Configure(EntityTypeBuilder<Invoice> builder)
     {
-        // PK zaten BaseEntity.PkId üzerinden geliyor (attribute). İstersen:
-        // builder.HasKey(i => i.PkId);
-
-        builder.HasOne(i => i.Apartment)
-               .WithMany(a => a.Invoices)
-               .HasForeignKey(i => i.ApartPkId)
-               .OnDelete(DeleteBehavior.Cascade);
-
-        // InvoiceId bir iş/sıra numarası: otomatik artsın ama PK değil.
+        // Business sequence (NOT PK)
         builder.Property(i => i.InvoiceId)
                .ValueGeneratedOnAdd();
 
-        // Payments ilişkisi: FK olarak Invoice'un PK'si (Guid PkId) önerilir.
-        builder.HasMany(i => i.Payments)
-               .WithOne(p => p.Invoice)
-               .HasForeignKey(p => p.InvoicePkId);   // Payment tarafını buna göre düzenle
+        // Money precision
+        builder.Property(i => i.InvoiceAmount)
+               .HasColumnType("decimal(18,2)");
+
+        // Invoice (N) -> Apartment (1)
+        builder.HasOne(i => i.Apartment)
+               .WithMany(a => a.Invoices)
+               .HasForeignKey(i => i.ApartmentPkId)   // <-- was ApartPkId
+               .OnDelete(DeleteBehavior.SetNull);
+
+    
+  
+
+        // Helpful index for lookups
+        builder.HasIndex(i => new { i.ApartmentPkId, i.InvoiceYear, i.InvoiceMonth });
     }
 }

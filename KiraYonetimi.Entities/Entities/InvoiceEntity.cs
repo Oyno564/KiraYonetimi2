@@ -1,39 +1,25 @@
-﻿using KiraYonetimi.Entities.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using KiraYonetimi.Entities.Common;
 
-using KiraYonetimi.Entities.Common;
-using System.ComponentModel.DataAnnotations;
 namespace KiraYonetimi.Entities.Entities
 {
     public class Invoice : BaseEntity
     {
-     
-    
-
+        // Business code (NOT PK)
         public int InvoiceId { get; set; }
 
-        public Guid ApartPkId { get; set; }
+        // FKs (nullable so records can survive deletions/unassignments)
+        public Guid? ApartmentPkId { get; set; }   // -> Apartment.PkId
+        public Guid? ApartUserPkId { get; set; }   // -> ApartUser.PkId
 
-      
-
-        public int InvoiceMonth { get; set; }
-
+        // Data
+        public int InvoiceMonth { get; set; }      // 1..12
         public int InvoiceYear { get; set; }
-
         public decimal InvoiceAmount { get; set; }
+        public bool InvoiceStatus { get; set; }    // paid/unpaid etc.
 
-        public bool InvoiceStatus { get; set; }
-
-
-        public virtual ApartUser? ApartUser { get; set; }
-
-
+        // Navigations
         public virtual Apartment? Apartment { get; set; }
-
-        public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
-    };
-};
+   
+     
+    }
+}

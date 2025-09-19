@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/* using System;
 
 namespace KiraYonetimi.Common.Queries.QueryRequest
 {
     public sealed class GetApartUserByIdResult
     {
-        public Guid UserPkId { get; set; }
-        public int ApartUserId { get; set; } // PK değil
-        public int UserId { get; set; }
-        public Guid ApartId { get; set; }
+        public Guid PkId { get; set; }        // ApartUser's Guid PK (from BaseEntity)
+        public Guid UserPkId { get; set; }    // FK -> User.PkId (Guid)
+        public int UserId { get; set; }     
+
+     
     }
 }
+ */

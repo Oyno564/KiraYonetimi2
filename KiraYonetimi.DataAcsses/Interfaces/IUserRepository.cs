@@ -1,4 +1,4 @@
-﻿using KiraYonetimi.Entities.Entities;
+﻿/* using KiraYonetimi.Entities.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,3 +16,4 @@ namespace KiraYonetimi.DataAcsses.Interfaces
         Task<List<int>> GetUserIdsByPasswordAsync(string password);
     }
 }
+ */

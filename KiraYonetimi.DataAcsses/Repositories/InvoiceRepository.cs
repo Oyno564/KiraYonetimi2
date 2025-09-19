@@ -1,4 +1,4 @@
-﻿using KiraYonetimi.DataAcsses.Interfaces;
+﻿/* using KiraYonetimi.DataAcsses.Interfaces;
 using KiraYonetimi.Entities.Entities;
 using System;
 using System.Collections.Generic;
@@ -37,3 +37,4 @@ namespace KiraYonetimi.DataAcsses.Repositories
 
     }
 }
+*/

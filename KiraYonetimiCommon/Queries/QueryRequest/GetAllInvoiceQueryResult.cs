@@ -11,7 +11,7 @@ namespace KiraYonetimi.Common.Queries.QueryRequest
 
         public int InvoiceId { get; set; }
 
-        public Guid ApartPkId { get; set; }
+
 
         public int InvoiceMonth { get; set; }
 
