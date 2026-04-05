@@ -17,6 +17,9 @@ public class InvoiceController : ControllerBase
         var dto = await _mediator.Send(new GetInvoiceByIdQuery(id), ct);
         return dto is null ? NotFound() : Ok(dto);
     }
+    [HttpGet]
+    public async Task<IActionResult> GetAllInvoices(CancellationToken ct)
+    => Ok(await _mediator.Send(new GetAllInvoiceQuery(), ct));
 
     // 2) POST -> CreatedAtRoute ile aynı "Name" ve aynı parametre adı
     [HttpPost]

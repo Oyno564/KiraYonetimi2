@@ -32,5 +32,9 @@ namespace KiraYonetimi.API.Controllers
             var dto = await _mediator.Send(new GetApartUserByIdQuery(id), ct);
             return dto is null ? NotFound() : Ok(dto);
         }
+        [HttpGet]
+            public async Task<IActionResult> GetAllApartUser(CancellationToken ct)
+           => Ok(await _mediator.Send(new GetAllApartUserQuery(), ct));
+        
     }
 }
